@@ -17,7 +17,7 @@ runs:
     - uses: cargo-bins/cargo-binstall@main
 
     - name: Install Cross
-      run: cargo-binstall cross
+      run: cargo install cross --git https://github.com/cross-rs/cross
       shell: bash
 
     - name: pnpm install node modules
