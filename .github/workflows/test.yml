@@ -25,3 +25,4 @@ jobs:
 
       - name: Build Native Artifacts
         run: ./scripts/release.sh
+        shell: bash
