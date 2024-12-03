@@ -30,9 +30,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ github.sha }}-${{ matrix.os }}
-          path: |
-            packages/**/*.node
-            !packages/**/node_modules
+          path: packages/**/*.node
           retention-days: 1
 
   download-artifacts:
