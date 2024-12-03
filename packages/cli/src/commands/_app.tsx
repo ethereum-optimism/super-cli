@@ -1,7 +1,7 @@
 import type {AppProps} from 'pastel';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {useInput} from 'ink';
-import {parseToml} from 'toml-parser';
+import {parseToml} from '@eth-optimism/toml-rs';
 
 export const queryClient = new QueryClient();
 

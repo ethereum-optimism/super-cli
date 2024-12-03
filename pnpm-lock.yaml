@@ -21,6 +21,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@eth-optimism/toml-rs':
+        specifier: workspace:*
+        version: link:../toml-parser
       '@eth-optimism/viem':
         specifier: ^0.0.11
         version: 0.0.11(viem@2.21.41(typescript@5.6.3)(zod@3.23.8))
@@ -54,9 +57,6 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
-      toml-parser:
-        specifier: workspace:*
-        version: link:../toml-parser
       viem:
         specifier: ^2.21.41
         version: 2.21.41(typescript@5.6.3)(zod@3.23.8)

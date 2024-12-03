@@ -1,5 +1,5 @@
 {
-    "name": "toml-parser",
+    "name": "@eth-optimism/toml-rs",
     "version": "0.0.1",
     "license": "MIT",
     "main": "./index.js",
