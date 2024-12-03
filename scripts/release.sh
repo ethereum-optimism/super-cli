@@ -35,7 +35,8 @@ build_windows() {
     for arch in "${windows_archs[@]}"; do
         rustup target add $arch
         echo "Building for windows architecture: $arch"
-        CLI_BUILD_ARCH=$arch pnpm nx run-many --target=build:bindings --skip-nx-cache
+        set CLI_BUILD_ARCH=$arch
+        pnpm nx run-many --target=build:bindings --skip-nx-cache
     done
 }
 
