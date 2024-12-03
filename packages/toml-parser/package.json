@@ -5,8 +5,8 @@
     "main": "./index.js",
     "typings": "./index.d.ts",
     "scripts": {
-        "build": "napi build --release --platform --use-cross",
-        "build:bindings": "napi build --release --platform --target $CLI_BUILD_ARCH --use-cross",
+        "build": "napi build --release --platform",
+        "build:bindings": "napi build --release --platform --target $CLI_BUILD_ARCH",
         "test": "cargo test",
         "lint": "cargo fmt --check",
         "lint:fix": "cargo fmt && cargo fmt --check",
