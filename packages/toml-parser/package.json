@@ -3,14 +3,16 @@
     "version": "0.0.1",
     "private": true,
     "main": "./index.js",
+    "typings": "./index.d.ts",
     "scripts": {
-        "build": "napi build --release",
+        "build": "napi build --release --platform --use-cross",
+        "build:bindings": "napi build --release --platform --target $CLI_BUILD_ARCH --use-cross",
         "test": "cargo test",
         "lint": "cargo fmt --check",
         "lint:fix": "cargo fmt && cargo fmt --check",
         "typecheck": "cargo check"
     },
     "dependencies": {
-        "@napi-rs/cli": "^2.18.4"
+        "@napi-rs/cli": "3.0.0-alpha.64"
     }
 }

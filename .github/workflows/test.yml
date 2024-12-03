@@ -1,0 +1,27 @@
+name: Test node binding generation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - nick-test
+
+jobs:
+  build-native-artifacts:
+    name: Build node bindings
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Native Artifacts
+        run: ./scripts/release.sh

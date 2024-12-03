@@ -3,3 +3,8 @@
 members = [
     "packages/toml-parser"
 ]
+
+[workspace.dependencies]
+  napi         = { version = "3.0.0-alpha", default-features = false, features = ["napi3"] }
+  napi-build   = "2"
+  napi-derive  = { version = "3.0.0-alpha", default-features = false, features = ["type-def"] }

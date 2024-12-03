@@ -122,8 +122,8 @@ importers:
   packages/toml-parser:
     dependencies:
       '@napi-rs/cli':
-        specifier: ^2.18.4
-        version: 2.18.4
+        specifier: 3.0.0-alpha.64
+        version: 3.0.0-alpha.64(@emnapi/runtime@1.3.1)(@types/node@22.9.0)
 
 packages:
 
@@ -763,6 +763,86 @@ packages:
     peerDependencies:
       ink: '>=5'
 
+  '@inquirer/checkbox@4.0.2':
+    resolution: {integrity: sha512-+gznPl8ip8P8HYHYecDtUtdsh1t2jvb+sWCD72GAiZ9m45RqwrLmReDaqdC0umQfamtFXVRoMVJ2/qINKGm9Tg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/confirm@5.0.2':
+    resolution: {integrity: sha512-KJLUHOaKnNCYzwVbryj3TNBxyZIrr56fR5N45v6K9IPrbT6B7DcudBMfylkV1A8PUdJE15mybkEQyp2/ZUpxUA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/core@10.1.0':
+    resolution: {integrity: sha512-I+ETk2AL+yAVbvuKx5AJpQmoaWhpiTFOg/UJb7ZkMAK4blmtG8ATh5ct+T/8xNld0CZG/2UhtkdMwpgvld92XQ==}
+    engines: {node: '>=18'}
+
+  '@inquirer/editor@4.1.0':
+    resolution: {integrity: sha512-K1gGWsxEqO23tVdp5MT3H799OZ4ER1za7Dlc8F4um0W7lwSv0KGR/YyrUEyimj0g7dXZd8XknM/5QA2/Uy+TbA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/expand@4.0.2':
+    resolution: {integrity: sha512-WdgCX1cUtinz+syKyZdJomovULYlKUWZbVYZzhf+ZeeYf4htAQ3jLymoNs3koIAKfZZl3HUBb819ClCBfyznaw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/figures@1.0.8':
+    resolution: {integrity: sha512-tKd+jsmhq21AP1LhexC0pPwsCxEhGgAkg28byjJAd+xhmIs8LUX8JbUc3vBf3PhLxWiB5EvyBE5X7JSPAqMAqg==}
+    engines: {node: '>=18'}
+
+  '@inquirer/input@4.0.2':
+    resolution: {integrity: sha512-yCLCraigU085EcdpIVEDgyfGv4vBiE4I+k1qRkc9C5dMjWF42ADMGy1RFU94+eZlz4YlkmFsiyHZy0W1wdhaNg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/number@3.0.2':
+    resolution: {integrity: sha512-MKQhYofdUNk7eqJtz52KvM1dH6R93OMrqHduXCvuefKrsiMjHiMwjc3NZw5Imm2nqY7gWd9xdhYrtcHMJQZUxA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/password@4.0.2':
+    resolution: {integrity: sha512-tQXGSu7IO07gsYlGy3VgXRVsbOWqFBMbqAUrJSc1PDTQQ5Qdm+QVwkP0OC0jnUZ62D19iPgXOMO+tnWG+HhjNQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/prompts@7.1.0':
+    resolution: {integrity: sha512-5U/XiVRH2pp1X6gpNAjWOglMf38/Ys522ncEHIKT1voRUvSj/DQnR22OVxHnwu5S+rCFaUiPQ57JOtMFQayqYA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/rawlist@4.0.2':
+    resolution: {integrity: sha512-3XGcskMoVF8H0Dl1S5TSZ3rMPPBWXRcM0VeNVsS4ByWeWjSeb0lPqfnBg6N7T0608I1B2bSVnbi2cwCrmOD1Yw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/search@3.0.2':
+    resolution: {integrity: sha512-Zv4FC7w4dJ13BOJfKRQCICQfShinGjb1bCEIHxTSnjj2telu3+3RHwHubPG9HyD4aix5s+lyAMEK/wSFD75HLA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/select@4.0.2':
+    resolution: {integrity: sha512-uSWUzaSYAEj0hlzxa1mUB6VqrKaYx0QxGBLZzU4xWFxaSyGaXxsSE4OSOwdU24j0xl8OajgayqFXW0l2bkl2kg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
+  '@inquirer/type@3.0.1':
+    resolution: {integrity: sha512-+ksJMIy92sOAiAccGpcKZUc3bYO07cADnscIxHBknEm3uNts3movSmBofc1908BNy5edKscxYeAdaX1NXkHS6A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
@@ -798,13 +878,329 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@napi-rs/cli@2.18.4':
-    resolution: {integrity: sha512-SgJeA4df9DE2iAEpr3M2H0OKl/yjtg1BnRI5/JyowS71tUWhrfSu2LT0V3vlHET+g1hBVlrO60PmEXwUEKp8Mg==}
-    engines: {node: '>= 10'}
+  '@napi-rs/cli@3.0.0-alpha.64':
+    resolution: {integrity: sha512-IYkNvh+SjFd4StEIJVsXa4paAeKakYG80GWTfX3PwpFlrX4fQZ7BkPR1IGWI17x5psz9MQvuEyicwjGWiHxI4A==}
+    engines: {node: '>= 16'}
     hasBin: true
+    peerDependencies:
+      '@emnapi/runtime': ^1.1.0
+      emnapi: ^1.1.0
+    peerDependenciesMeta:
+      '@emnapi/runtime':
+        optional: true
+      emnapi:
+        optional: true
+
+  '@napi-rs/cross-toolchain@0.0.16':
+    resolution: {integrity: sha512-jwdjHT5L0m9MH0CmzDwPp0ckn/UO7afHCsPeo7NugHUvYgvlgS7SWhdMVgIgJW2HHqhcW/2nhaLLGpAU1c7QRQ==}
+    peerDependencies:
+      '@napi-rs/cross-toolchain-arm64-target-aarch64': ^0.0.16
+      '@napi-rs/cross-toolchain-arm64-target-armv7': ^0.0.16
+      '@napi-rs/cross-toolchain-arm64-target-x86_64': ^0.0.16
+      '@napi-rs/cross-toolchain-x64-target-aarch64': ^0.0.16
+      '@napi-rs/cross-toolchain-x64-target-armv7': ^0.0.16
+      '@napi-rs/cross-toolchain-x64-target-x86_64': ^0.0.16
+    peerDependenciesMeta:
+      '@napi-rs/cross-toolchain-arm64-target-aarch64':
+        optional: true
+      '@napi-rs/cross-toolchain-arm64-target-armv7':
+        optional: true
+      '@napi-rs/cross-toolchain-arm64-target-x86_64':
+        optional: true
+      '@napi-rs/cross-toolchain-x64-target-aarch64':
+        optional: true
+      '@napi-rs/cross-toolchain-x64-target-armv7':
+        optional: true
+      '@napi-rs/cross-toolchain-x64-target-x86_64':
+        optional: true
+
+  '@napi-rs/lzma-android-arm-eabi@1.4.1':
+    resolution: {integrity: sha512-yenreSpZ9IrqppJOiWDqWMmja7XtSgio9LhtxYwgdILmy/OJTe/mlTYv+FhJBf7hIV9Razu5eBuEa3zKri81IA==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+
+  '@napi-rs/lzma-android-arm64@1.4.1':
+    resolution: {integrity: sha512-piutVBz5B1TNxXeEjub0n/IKI6dMaXPPRbVSXuc4gnZgzcihNDUh68vcLZgYd+IMiACZvBxvx2O3t5nthtph3A==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@napi-rs/lzma-darwin-arm64@1.4.1':
+    resolution: {integrity: sha512-sDfOhQQFqV8lGbpgJN9DqNLBPR7QOfYjcWUv8FOGPaVP1LPJDnrc5uCpRWWEa2zIKmTiO8P9xzIl0TDzrYmghg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@napi-rs/lzma-darwin-x64@1.4.1':
+    resolution: {integrity: sha512-S5/RbC6EP4QkYy2xhxbfm48ZD9FkysfpWY4Slve0nj5RGGsHvcJBg2Pi69jrTPB/zLKz2SUa0i+RfUt9zvZNaw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@napi-rs/lzma-freebsd-x64@1.4.1':
+    resolution: {integrity: sha512-4AFnq6aZnclwameSBkDWu5Ftb8y4GwvVXeQXJKbN7hf7O5GG/8QpQB1R1NJw2QORUhpKwjAQUpbkTyhL2GFWWw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@napi-rs/lzma-linux-arm-gnueabihf@1.4.1':
+    resolution: {integrity: sha512-j5rL1YRIm6rWmmGAvN6DPX6QuRjvFGB93xJ7DTRB47GXW4zHekXae6ivowjJ95vT4Iz4hSWkZbuwAy95eFrWRA==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-arm64-gnu@1.4.1':
+    resolution: {integrity: sha512-1XdFGKyTS9m+VrRQYs9uz+ToHf4Jwm0ejHU48k9lT9MPl8jSqzKdVtFzZBPzronHteSynBfKmUq0+HeWmjrsOQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-arm64-musl@1.4.1':
+    resolution: {integrity: sha512-9d09tYS0/rBwIk1QTcO2hMZEB/ZpsG2+uFW5am1RHElSWMclObirB1An7b6AMDJcRvcomkOg2GZ9COzrvHKwEA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-ppc64-gnu@1.4.1':
+    resolution: {integrity: sha512-UzEkmsgoJ3IOGIRb6kBzNiw+ThUpiighop7dVYfSqlF5juGzwf7YewC57RGn4FoJCvadOCrSm5VikAcgrwVgAw==}
+    engines: {node: '>= 10'}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-riscv64-gnu@1.4.1':
+    resolution: {integrity: sha512-9dUKlZ1PdwxTaFF+j3oc+xjlk9nqFwo1NWWOH30uwjl4Rm5Gkv+Fx0pHrzu4kR/iVA+oyQqa9/2uDYnGSTijBA==}
+    engines: {node: '>= 10'}
+    cpu: [riscv64]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-s390x-gnu@1.4.1':
+    resolution: {integrity: sha512-MOVXUWJSLLCJDCCAlGa39sh7nv9XjvXzCf7QJus7rD8Ciz0mpXNXF9mg0ji7/MZ7pZlKPlXjXDnpVCfFdSEaFQ==}
+    engines: {node: '>= 10'}
+    cpu: [s390x]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-x64-gnu@1.4.1':
+    resolution: {integrity: sha512-Sxu7aJxU1sDbUTqjqLVDV3DCOAlbsFKvmuCN/S5uXBJd1IF2wJ9jK3NbFzfqTAo5Hudx8Y7kOb6+3K+fYPI1KQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/lzma-linux-x64-musl@1.4.1':
+    resolution: {integrity: sha512-4I3BeKBQJSE5gF2/VTEv7wCLLjhapeutbCGpZPmDiLHZ74rm9edmNXAlKpdjADQ4YDLJ2GIBzttvwLXkJ9U+cw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/lzma-wasm32-wasi@1.4.1':
+    resolution: {integrity: sha512-s32HdKqQWbohf6DGWpG9YMODaBdbKJ++JpNr6Ii7821sKf4h/o+p8IRFTOaWdmdJdllEWlRirnd5crA29VivJQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+
+  '@napi-rs/lzma-win32-arm64-msvc@1.4.1':
+    resolution: {integrity: sha512-ISz+v7ML5mKnjEZ7Kk4Z1BIn411r/fz3tDy9j5yDnwQI0MgTsUQFrIQElGUpULWYs2aYc6EZ9PhECbLBfSjh7A==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@napi-rs/lzma-win32-ia32-msvc@1.4.1':
+    resolution: {integrity: sha512-3WKuCpZBrd7Jrw+h1jSu5XAsRWepMJu0sYuRoA4Y4Cwfu9gI7p5Z5Bc510nfjg7M7xvdpkI4UoW2WY7kBFRYrQ==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@napi-rs/lzma-win32-x64-msvc@1.4.1':
+    resolution: {integrity: sha512-0ixRo5z1zFXdh62hlrTV+QCTKHK0te5NHKaExOluhtcc6AdpMmpslvM9JhUxNHI+zM46w/DmmcvcOtqsaTmHgg==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@napi-rs/lzma@1.4.1':
+    resolution: {integrity: sha512-5f8K9NHjwHjZKGm3SS+7CFxXQhz8rbg2umBm/9g0xQRXBdYEI31N5z1ACuk9bmBQOusXAq9CArGfs/ZQso2rUA==}
+    engines: {node: '>= 10'}
+
+  '@napi-rs/tar-android-arm-eabi@0.1.4':
+    resolution: {integrity: sha512-LMSysWp5AmZj1NOCB2jshc9KCvp4gm7vm0Cra5U2crMvlj/fwGrvv6+EzSw49y8wCkNEcQ8QaGq5NBQKiLogSg==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+
+  '@napi-rs/tar-android-arm64@0.1.4':
+    resolution: {integrity: sha512-A/2rl8xr7F5yOtHVARROoSwjRRDNL1RlXCsg/K+RE5/V9iPBojsJsLpFPilp7InF6bi+z7aYn+yWCD6wSwfF4A==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@napi-rs/tar-darwin-arm64@0.1.4':
+    resolution: {integrity: sha512-mnGBswBRtxDqUwXUZx+f9Uuy2uPssxuvcWFTYgUSZqlS2pg/XIWZdHZhbqWqKGpjpZrYcr+42roytbWlZ+epMA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@napi-rs/tar-darwin-x64@0.1.4':
+    resolution: {integrity: sha512-I81Fvl/cfnFVBET49xywNd57dXLJPO7jqrjD9Z2bKeXA0v0Zt1cwV1IOOTihFZXJv7kgu6EfNB7oumoLOTqq5A==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@napi-rs/tar-freebsd-x64@0.1.4':
+    resolution: {integrity: sha512-p5OFr3MqidZHkt9bHV2FgeS6k06g+s0GR2kvj/wm2mIxr7u3/sj3+RTr7GHz5DQq08T7uH85HhsrGYWN3vxmSg==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@napi-rs/tar-linux-arm-gnueabihf@0.1.4':
+    resolution: {integrity: sha512-POp2zb/Yuw6taEmrTlEoQI5S+2HmgfV1VtqGQZgRmCa85NlWLDsR6vbW9euu/6NbLj3ld15cCeJC2oJkv9k/xg==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@napi-rs/tar-linux-arm64-gnu@0.1.4':
+    resolution: {integrity: sha512-TV+2AppSgJx5U9nk1C9bh1afWcBVnnANJ4SmtqUF6ediHcDS2rLebeI8BGljfnX9F149qbT9gOGN+R8tofpCsg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/tar-linux-arm64-musl@0.1.4':
+    resolution: {integrity: sha512-UFBvKpYmuQRbgmXuSSPb8mRjq4JRZLYJhqwrWWnlfQP13xK2WB7mL2GhewBgynSH4YKDm6biKhK6U5RrSWEDgw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/tar-linux-ppc64-gnu@0.1.4':
+    resolution: {integrity: sha512-HT+h6Wv51SKXqks8UBF+KVuNJ09fM1GyO+SvCnDB5MF66tGiI2C6/MSX69zf1ZeqjACds1K/UwKiZCmE76/j9A==}
+    engines: {node: '>= 10'}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@napi-rs/tar-linux-s390x-gnu@0.1.4':
+    resolution: {integrity: sha512-SJ+HSr281Y6cgJrQ4nkYbXaTHAmTLv/FZm5k9ZRA6Khml//ZoWi7CiT8dnPeD4QxYwCzAFA4aYMUOQJM/mk2/w==}
+    engines: {node: '>= 10'}
+    cpu: [s390x]
+    os: [linux]
+
+  '@napi-rs/tar-linux-x64-gnu@0.1.4':
+    resolution: {integrity: sha512-LrF0lRFiFOkO40jfgTdF8dRTvYOLV52fdZ/YnJuBodNcxqEl9rChO3v5Uag//sy0me85FjqtobQNRQP8Nd80dA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/tar-linux-x64-musl@0.1.4':
+    resolution: {integrity: sha512-etGUWbs+Tk1PtzgyWrVzXa2fQrHNKSc/whHm+4x1Num8Oz+wGdjCDTUktYxAVy33PKZhdblVxxE83QXxkgjneQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/tar-wasm32-wasi@0.1.4':
+    resolution: {integrity: sha512-mANkm93AKy+OspkOBAC5WI64SopXT0VawdTjpeGW1OgyUSJWdUB5rhs3I7B/HW1bi5tsUoZOZQe3rVgYdfzA6g==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+
+  '@napi-rs/tar-win32-arm64-msvc@0.1.4':
+    resolution: {integrity: sha512-/5/gp6WR9b36CysJDe8AdyjNeje+NqCniYJz/AZc+UvpKwG8MG9nS6TMpJ9IgrQacJXvc4lWXxYyn6uuPQVvaQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@napi-rs/tar-win32-ia32-msvc@0.1.4':
+    resolution: {integrity: sha512-HnQi0op9BqJqPekKXhEAI1TWkLtavxKDBDGXNhUSm2//jriMeRykahUcKoUUxr1UGrmtxpc5dx0cThBt13paEw==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@napi-rs/tar-win32-x64-msvc@0.1.4':
+    resolution: {integrity: sha512-vy2ebEXerblni6XOgi3a27+CnI6PdQ9Phy/ru5HM4bVd/oulAJohmynAmBAB1AmXg1NLbAEWu43nATEDp5O2hA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@napi-rs/tar@0.1.4':
+    resolution: {integrity: sha512-hDsvmMZY8tl2CcLfjnTeE1o5W1eGTSL+ZIX8YEybtcJwA+Cc8SNHb7l6JqMnGcjOrWBZbHt8tzTN+W7qHS5Wmg==}
+    engines: {node: '>= 10'}
 
   '@napi-rs/wasm-runtime@0.2.4':
     resolution: {integrity: sha512-9zESzOO5aDByvhIAsOy9TbpZ0Ur2AJbUI7UT73kcUTS2mxAMHOBaa1st/jAymNoCtvrit99kkzT1FZuXVcgfIQ==}
+
+  '@napi-rs/wasm-tools-android-arm-eabi@0.0.2':
+    resolution: {integrity: sha512-/b+UU3suXjW4P0DzHRNdrnebQtFKcQf/YMeZJH+xUlKgvwli5kbmWjx8Wqqz0VETVkUTuPqJMBDIVLyc+14FGw==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+
+  '@napi-rs/wasm-tools-android-arm64@0.0.2':
+    resolution: {integrity: sha512-j57GbDflwJdZtT8pZj5fOV4JAP+LdKN+wzsUYs+QRUoBqpWbbUANudolqfw63bkS9sD4z7fbCuz8iwtJqzxTVA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@napi-rs/wasm-tools-darwin-arm64@0.0.2':
+    resolution: {integrity: sha512-P2ChgWgVuv9GwmbxN89R84KzIImoTqXINteEixUvmkdnhyFiR+I8deNs89Yed+5w8QLC6MEfrtRqLP9YI+NoQA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@napi-rs/wasm-tools-darwin-x64@0.0.2':
+    resolution: {integrity: sha512-T/kQQ0gt8+wau1Z821PKVAD76QhmwVoLs2CT7Z9tTBs2pJvwSCP0C/kQiQAHcJIMi7A2E9Ab/Mez0BERy50EFA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@napi-rs/wasm-tools-freebsd-x64@0.0.2':
+    resolution: {integrity: sha512-GnnHu+r5sfzuxC/1J5UMF/h3BOZnHb3NQZ5hmbCfZYCKzpzRxrAJhzRunlbRN+v0x8M/49dztVTYR3s7K4ooAw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@napi-rs/wasm-tools-linux-arm64-gnu@0.0.2':
+    resolution: {integrity: sha512-KnZdLT0OnKb1CG2kdt3/WvM43vr9i+FEwXCvSOVC/6Tsifz7ynhMg7LAVESILd03HubzQJfg9nbRsk0bQ+IOwg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/wasm-tools-linux-arm64-musl@0.0.2':
+    resolution: {integrity: sha512-HkpZOID2U8P6pWqK3mqZ8bxU5xcuT3iA2fO+jrxn78h006iYgfNmdc5JaVhHnHazMmk32xKhSV4iV0VUh8UWDg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@napi-rs/wasm-tools-linux-x64-gnu@0.0.2':
+    resolution: {integrity: sha512-YksJWBCyOalB9ogtP9+/dZKP+vR6+h7BmzMXaXMT71WW/GvIsifMVgv+DY/FRSNJQupp5Y+ugjqVAOUOc/G65g==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/wasm-tools-linux-x64-musl@0.0.2':
+    resolution: {integrity: sha512-sPtRxPMdw05KdTcxgSPMmSXG2+PiK3vJ/l2+g9hvjnnKtvslJN2Hr7j8zgzuoKRAUFPaJVe6+D2xVh5cpdqhww==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@napi-rs/wasm-tools-wasm32-wasi@0.0.2':
+    resolution: {integrity: sha512-muRvZK7AIuo88G2AxYx3gA59rHMQgoN004saQkBvXnz3K/DVHKfTZ6TtUebss8zI3dURU6xExL8drxFWYxjEbQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+
+  '@napi-rs/wasm-tools-win32-arm64-msvc@0.0.2':
+    resolution: {integrity: sha512-Cn13WQ+tpFqdVwx0DIWKbsI9auFyzVZV4F5UNOUeDt6GgOL+NndgJul0Pc9bSU6fi03AylMPfF/nTCaDWO2Wgw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@napi-rs/wasm-tools-win32-ia32-msvc@0.0.2':
+    resolution: {integrity: sha512-xsg5DkIQi82a8rcx6246Y3XC8TIqHamY+/C6sIlPLaZEuHctDkMECAw0AANwRf5vN//D2oo2oljOuoYtB1GOKw==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@napi-rs/wasm-tools-win32-x64-msvc@0.0.2':
+    resolution: {integrity: sha512-yHigltEt33eq8bappvKsIliz4MxfMPn1M+NWbIFRWN+IS1Z57mhmc1osuk+IRXrSlq0Tom0R6MYN1jpkZKz81Q==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@napi-rs/wasm-tools@0.0.2':
+    resolution: {integrity: sha512-kBvDQCP5BLw2TxTENXLp3Of7vVEx0uyIye824JHE4dduzzOHVgSoOFVhVqAT3Fx/hLV445RVWfEqQbXMg4w/Mw==}
+    engines: {node: '>= 10'}
 
   '@noble/curves@1.6.0':
     resolution: {integrity: sha512-TlaHRXDehJuRNR9TfZDNQ45mMEd5dwUwmicsafcIX4SsNiqnCHKjE/1alYPd/lDRVhxdhUAlv8uEhMCI5zjIJQ==}
@@ -893,6 +1289,58 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+
+  '@octokit/auth-token@5.1.1':
+    resolution: {integrity: sha512-rh3G3wDO8J9wSjfI436JUKzHIxq8NaiL0tVeB2aXmG6p/9859aUOAjA9pmSPNGGZxfwmaJ9ozOJImuNVJdpvbA==}
+    engines: {node: '>= 18'}
+
+  '@octokit/core@6.1.2':
+    resolution: {integrity: sha512-hEb7Ma4cGJGEUNOAVmyfdB/3WirWMg5hDuNFVejGEDFqupeOysLc2sG6HJxY2etBp5YQu5Wtxwi020jS9xlUwg==}
+    engines: {node: '>= 18'}
+
+  '@octokit/endpoint@10.1.1':
+    resolution: {integrity: sha512-JYjh5rMOwXMJyUpj028cu0Gbp7qe/ihxfJMLc8VZBMMqSwLgOxDI1911gV4Enl1QSavAQNJcwmwBF9M0VvLh6Q==}
+    engines: {node: '>= 18'}
+
+  '@octokit/graphql@8.1.1':
+    resolution: {integrity: sha512-ukiRmuHTi6ebQx/HFRCXKbDlOh/7xEV6QUXaE7MJEKGNAncGI/STSbOkl12qVXZrfZdpXctx5O9X1AIaebiDBg==}
+    engines: {node: '>= 18'}
+
+  '@octokit/openapi-types@22.2.0':
+    resolution: {integrity: sha512-QBhVjcUa9W7Wwhm6DBFu6ZZ+1/t/oYxqc2tp81Pi41YNuJinbFRx8B133qVOrAaBbF7D/m0Et6f9/pZt9Rc+tg==}
+
+  '@octokit/plugin-paginate-rest@11.3.6':
+    resolution: {integrity: sha512-zcvqqf/+TicbTCa/Z+3w4eBJcAxCFymtc0UAIsR3dEVoNilWld4oXdscQ3laXamTszUZdusw97K8+DrbFiOwjw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+
+  '@octokit/plugin-request-log@5.3.1':
+    resolution: {integrity: sha512-n/lNeCtq+9ofhC15xzmJCNKP2BWTv8Ih2TTy+jatNCCq/gQP/V7rK3fjIfuz0pDWDALO/o/4QY4hyOF6TQQFUw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+
+  '@octokit/plugin-rest-endpoint-methods@13.2.6':
+    resolution: {integrity: sha512-wMsdyHMjSfKjGINkdGKki06VEkgdEldIGstIEyGX0wbYHGByOwN/KiM+hAAlUwAtPkP3gvXtVQA9L3ITdV2tVw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+
+  '@octokit/request-error@6.1.5':
+    resolution: {integrity: sha512-IlBTfGX8Yn/oFPMwSfvugfncK2EwRLjzbrpifNaMY8o/HTEAFqCA1FZxjD9cWvSKBHgrIhc4CSBIzMxiLsbzFQ==}
+    engines: {node: '>= 18'}
+
+  '@octokit/request@9.1.3':
+    resolution: {integrity: sha512-V+TFhu5fdF3K58rs1pGUJIDH5RZLbZm5BI+MNF+6o/ssFNT4vWlCh/tVpF3NxGtP15HUxTTMUbsG5llAuU2CZA==}
+    engines: {node: '>= 18'}
+
+  '@octokit/rest@21.0.2':
+    resolution: {integrity: sha512-+CiLisCoyWmYicH25y1cDfCrv41kRSvTq6pPWtRroRJzhsCZWZyCqGyI8foJT5LmScADSwRAnr/xo+eewL04wQ==}
+    engines: {node: '>= 18'}
+
+  '@octokit/types@13.6.2':
+    resolution: {integrity: sha512-WpbZfZUcZU77DrSW4wbsSgTPfKcp286q3ItaIgvSbBpZJlu6mnYXAkjZz6LVZPXkEvLIM8McanyZejKTYUHipA==}
 
   '@oxlint/darwin-arm64@0.12.0':
     resolution: {integrity: sha512-UydkjcAImpmBn8JYaMPg0zJrwgWJMGvJagvCnyPfyiBRWAN83Kq+BDgJZgIq+2Te6kvlnoiHWNJKVJmpy0f0BA==}
@@ -1160,6 +1608,10 @@ packages:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
     engines: {node: '>=6'}
 
+  ansi-escapes@4.3.2:
+    resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}
+    engines: {node: '>=8'}
+
   ansi-escapes@7.0.0:
     resolution: {integrity: sha512-GdYO7a61mR0fOlAsvC9/rIHf7L96sBc6dEWzeOu+KAea5bZyQRPIpojrVoI4AXGJS/ycu/fBTdLrUkA4ODrvjw==}
     engines: {node: '>=18'}
@@ -1247,6 +1699,9 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
+  before-after-hook@3.0.2:
+    resolution: {integrity: sha512-Nik3Sc0ncrMK4UUdXQmAnRtzmNQTAAXmXIopizwZ1W1t8QmfJj+zL4OA2I7XPTPW5z5TDqv4hRo/JzouDJnX3A==}
 
   better-path-resolve@1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
@@ -1349,6 +1804,15 @@ packages:
     resolution: {integrity: sha512-nPdaFdQ0h/GEigbPClz11D0v/ZJEwxmeVZGeMo3Z5StPtUTkA9o1lD6QwoirYiSDzbcwn2XcjwmCp68W1IS4TA==}
     engines: {node: '>=18'}
 
+  cli-width@4.1.0:
+    resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
+    engines: {node: '>= 12'}
+
+  clipanion@3.2.1:
+    resolution: {integrity: sha512-dYFdjLb7y1ajfxQopN05mylEpK9ZX0sO1/RfMXdfmwjlIsPkbh4p7A682x++zFPLDCo1x3p82dtljHf5cW2LKA==}
+    peerDependencies:
+      typanion: '*'
+
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
@@ -1367,6 +1831,9 @@ packages:
 
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  colorette@2.0.20:
+    resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -2232,6 +2699,9 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -2346,6 +2816,10 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  mute-stream@2.0.0:
+    resolution: {integrity: sha512-WWdIxpyjEn+FhQJQQv9aQAYlHoNVdzIzUySNV1gHUPDSdZJ3yZn7pAAbQcV7B56Mvu881q9FZV+0Vx2xC44VWA==}
+    engines: {node: ^18.17.0 || >=20.5.0}
 
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
@@ -2952,6 +3426,9 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
+  toml@3.0.0:
+    resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
+
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
 
@@ -3010,12 +3487,19 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  typanion@3.14.0:
+    resolution: {integrity: sha512-ZW/lVMRabETuYCd9O9ZvMhAh8GslSqaUjxmK/JLPCh6l73CvLBiuXswj/+7LdnWOgYsQ130FqLzFz5aGT4I3Ug==}
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
   type-fest@0.20.2:
     resolution: {integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==}
+    engines: {node: '>=10'}
+
+  type-fest@0.21.3:
+    resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
 
   type-fest@4.26.1:
@@ -3060,6 +3544,9 @@ packages:
   unique-slug@4.0.0:
     resolution: {integrity: sha512-WrcA6AyEfqDX5bWige/4NQfPZMtASNVxdmWR76WESYQVAACSgWcR6e9i0mofqqBxYFtL4oAxPIptY73/0YE1DQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  universal-user-agent@7.0.2:
+    resolution: {integrity: sha512-0JCqzSKnStlRRQfCdowvqy3cy0Dvtlb8xecj/H8JFZuCze4rwjPZQOgvFvn0Ws/usCHQFGpyr+pB9adaGwXn4Q==}
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -3122,6 +3609,9 @@ packages:
       terser:
         optional: true
 
+  wasm-sjlj@1.0.5:
+    resolution: {integrity: sha512-Z/MHJeOkAvJJVWnGX3/YZGYldGaawZbYHX4ldYG9kLhcdB8H31F5x66M7Zc4BP/7pg0aLsusQj1629m2B3Rilg==}
+
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
 
@@ -3172,6 +3662,10 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
+
+  wrap-ansi@6.2.0:
+    resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
+    engines: {node: '>=8'}
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -3225,6 +3719,10 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  yoctocolors-cjs@2.1.2:
+    resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
+    engines: {node: '>=18'}
 
   yoga-wasm-web@0.3.3:
     resolution: {integrity: sha512-N+d4UJSJbt/R3wqY7Coqs5pcV0aUj2j9IaQ3rNj9bVCLld8tTGKRa2USARjnvZJWVx1NDmQev8EknoczaOQDOA==}
@@ -3818,6 +4316,112 @@ snapshots:
       figures: 6.1.0
       ink: 5.0.1(@types/react@18.3.12)(react@18.3.1)
 
+  '@inquirer/checkbox@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/figures': 1.0.8
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      ansi-escapes: 4.3.2
+      yoctocolors-cjs: 2.1.2
+
+  '@inquirer/confirm@5.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+
+  '@inquirer/core@10.1.0(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/figures': 1.0.8
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      ansi-escapes: 4.3.2
+      cli-width: 4.1.0
+      mute-stream: 2.0.0
+      signal-exit: 4.1.0
+      strip-ansi: 6.0.1
+      wrap-ansi: 6.2.0
+      yoctocolors-cjs: 2.1.2
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@inquirer/editor@4.1.0(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      external-editor: 3.1.0
+
+  '@inquirer/expand@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      yoctocolors-cjs: 2.1.2
+
+  '@inquirer/figures@1.0.8': {}
+
+  '@inquirer/input@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+
+  '@inquirer/number@3.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+
+  '@inquirer/password@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      ansi-escapes: 4.3.2
+
+  '@inquirer/prompts@7.1.0(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/checkbox': 4.0.2(@types/node@22.9.0)
+      '@inquirer/confirm': 5.0.2(@types/node@22.9.0)
+      '@inquirer/editor': 4.1.0(@types/node@22.9.0)
+      '@inquirer/expand': 4.0.2(@types/node@22.9.0)
+      '@inquirer/input': 4.0.2(@types/node@22.9.0)
+      '@inquirer/number': 3.0.2(@types/node@22.9.0)
+      '@inquirer/password': 4.0.2(@types/node@22.9.0)
+      '@inquirer/rawlist': 4.0.2(@types/node@22.9.0)
+      '@inquirer/search': 3.0.2(@types/node@22.9.0)
+      '@inquirer/select': 4.0.2(@types/node@22.9.0)
+      '@types/node': 22.9.0
+
+  '@inquirer/rawlist@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      yoctocolors-cjs: 2.1.2
+
+  '@inquirer/search@3.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/figures': 1.0.8
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      yoctocolors-cjs: 2.1.2
+
+  '@inquirer/select@4.0.2(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/core': 10.1.0(@types/node@22.9.0)
+      '@inquirer/figures': 1.0.8
+      '@inquirer/type': 3.0.1(@types/node@22.9.0)
+      '@types/node': 22.9.0
+      ansi-escapes: 4.3.2
+      yoctocolors-cjs: 2.1.2
+
+  '@inquirer/type@3.0.1(@types/node@22.9.0)':
+    dependencies:
+      '@types/node': 22.9.0
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -3869,13 +4473,245 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@napi-rs/cli@2.18.4': {}
+  '@napi-rs/cli@3.0.0-alpha.64(@emnapi/runtime@1.3.1)(@types/node@22.9.0)':
+    dependencies:
+      '@inquirer/prompts': 7.1.0(@types/node@22.9.0)
+      '@napi-rs/cross-toolchain': 0.0.16
+      '@napi-rs/wasm-tools': 0.0.2
+      '@octokit/rest': 21.0.2
+      clipanion: 3.2.1(typanion@3.14.0)
+      colorette: 2.0.20
+      debug: 4.3.7
+      js-yaml: 4.1.0
+      lodash-es: 4.17.21
+      semver: 7.6.3
+      toml: 3.0.0
+      typanion: 3.14.0
+      wasm-sjlj: 1.0.5
+    optionalDependencies:
+      '@emnapi/runtime': 1.3.1
+    transitivePeerDependencies:
+      - '@napi-rs/cross-toolchain-arm64-target-aarch64'
+      - '@napi-rs/cross-toolchain-arm64-target-armv7'
+      - '@napi-rs/cross-toolchain-arm64-target-x86_64'
+      - '@napi-rs/cross-toolchain-x64-target-aarch64'
+      - '@napi-rs/cross-toolchain-x64-target-armv7'
+      - '@napi-rs/cross-toolchain-x64-target-x86_64'
+      - '@types/node'
+      - supports-color
+
+  '@napi-rs/cross-toolchain@0.0.16':
+    dependencies:
+      '@napi-rs/lzma': 1.4.1
+      '@napi-rs/tar': 0.1.4
+      debug: 4.3.7
+    transitivePeerDependencies:
+      - supports-color
+
+  '@napi-rs/lzma-android-arm-eabi@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-android-arm64@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-darwin-arm64@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-darwin-x64@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-freebsd-x64@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-arm-gnueabihf@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-arm64-gnu@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-arm64-musl@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-ppc64-gnu@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-riscv64-gnu@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-s390x-gnu@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-x64-gnu@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-linux-x64-musl@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-wasm32-wasi@1.4.1':
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.4
+    optional: true
+
+  '@napi-rs/lzma-win32-arm64-msvc@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-win32-ia32-msvc@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma-win32-x64-msvc@1.4.1':
+    optional: true
+
+  '@napi-rs/lzma@1.4.1':
+    optionalDependencies:
+      '@napi-rs/lzma-android-arm-eabi': 1.4.1
+      '@napi-rs/lzma-android-arm64': 1.4.1
+      '@napi-rs/lzma-darwin-arm64': 1.4.1
+      '@napi-rs/lzma-darwin-x64': 1.4.1
+      '@napi-rs/lzma-freebsd-x64': 1.4.1
+      '@napi-rs/lzma-linux-arm-gnueabihf': 1.4.1
+      '@napi-rs/lzma-linux-arm64-gnu': 1.4.1
+      '@napi-rs/lzma-linux-arm64-musl': 1.4.1
+      '@napi-rs/lzma-linux-ppc64-gnu': 1.4.1
+      '@napi-rs/lzma-linux-riscv64-gnu': 1.4.1
+      '@napi-rs/lzma-linux-s390x-gnu': 1.4.1
+      '@napi-rs/lzma-linux-x64-gnu': 1.4.1
+      '@napi-rs/lzma-linux-x64-musl': 1.4.1
+      '@napi-rs/lzma-wasm32-wasi': 1.4.1
+      '@napi-rs/lzma-win32-arm64-msvc': 1.4.1
+      '@napi-rs/lzma-win32-ia32-msvc': 1.4.1
+      '@napi-rs/lzma-win32-x64-msvc': 1.4.1
+
+  '@napi-rs/tar-android-arm-eabi@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-android-arm64@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-darwin-arm64@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-darwin-x64@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-freebsd-x64@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-arm-gnueabihf@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-arm64-gnu@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-arm64-musl@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-ppc64-gnu@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-s390x-gnu@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-x64-gnu@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-linux-x64-musl@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-wasm32-wasi@0.1.4':
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.4
+    optional: true
+
+  '@napi-rs/tar-win32-arm64-msvc@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-win32-ia32-msvc@0.1.4':
+    optional: true
+
+  '@napi-rs/tar-win32-x64-msvc@0.1.4':
+    optional: true
+
+  '@napi-rs/tar@0.1.4':
+    optionalDependencies:
+      '@napi-rs/tar-android-arm-eabi': 0.1.4
+      '@napi-rs/tar-android-arm64': 0.1.4
+      '@napi-rs/tar-darwin-arm64': 0.1.4
+      '@napi-rs/tar-darwin-x64': 0.1.4
+      '@napi-rs/tar-freebsd-x64': 0.1.4
+      '@napi-rs/tar-linux-arm-gnueabihf': 0.1.4
+      '@napi-rs/tar-linux-arm64-gnu': 0.1.4
+      '@napi-rs/tar-linux-arm64-musl': 0.1.4
+      '@napi-rs/tar-linux-ppc64-gnu': 0.1.4
+      '@napi-rs/tar-linux-s390x-gnu': 0.1.4
+      '@napi-rs/tar-linux-x64-gnu': 0.1.4
+      '@napi-rs/tar-linux-x64-musl': 0.1.4
+      '@napi-rs/tar-wasm32-wasi': 0.1.4
+      '@napi-rs/tar-win32-arm64-msvc': 0.1.4
+      '@napi-rs/tar-win32-ia32-msvc': 0.1.4
+      '@napi-rs/tar-win32-x64-msvc': 0.1.4
 
   '@napi-rs/wasm-runtime@0.2.4':
     dependencies:
       '@emnapi/core': 1.3.1
       '@emnapi/runtime': 1.3.1
       '@tybys/wasm-util': 0.9.0
+
+  '@napi-rs/wasm-tools-android-arm-eabi@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-android-arm64@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-darwin-arm64@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-darwin-x64@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-freebsd-x64@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-linux-arm64-gnu@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-linux-arm64-musl@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-linux-x64-gnu@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-linux-x64-musl@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-wasm32-wasi@0.0.2':
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.4
+    optional: true
+
+  '@napi-rs/wasm-tools-win32-arm64-msvc@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-win32-ia32-msvc@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools-win32-x64-msvc@0.0.2':
+    optional: true
+
+  '@napi-rs/wasm-tools@0.0.2':
+    optionalDependencies:
+      '@napi-rs/wasm-tools-android-arm-eabi': 0.0.2
+      '@napi-rs/wasm-tools-android-arm64': 0.0.2
+      '@napi-rs/wasm-tools-darwin-arm64': 0.0.2
+      '@napi-rs/wasm-tools-darwin-x64': 0.0.2
+      '@napi-rs/wasm-tools-freebsd-x64': 0.0.2
+      '@napi-rs/wasm-tools-linux-arm64-gnu': 0.0.2
+      '@napi-rs/wasm-tools-linux-arm64-musl': 0.0.2
+      '@napi-rs/wasm-tools-linux-x64-gnu': 0.0.2
+      '@napi-rs/wasm-tools-linux-x64-musl': 0.0.2
+      '@napi-rs/wasm-tools-wasm32-wasi': 0.0.2
+      '@napi-rs/wasm-tools-win32-arm64-msvc': 0.0.2
+      '@napi-rs/wasm-tools-win32-ia32-msvc': 0.0.2
+      '@napi-rs/wasm-tools-win32-x64-msvc': 0.0.2
 
   '@noble/curves@1.6.0':
     dependencies:
@@ -3938,6 +4774,67 @@ snapshots:
 
   '@nx/nx-win32-x64-msvc@20.1.2':
     optional: true
+
+  '@octokit/auth-token@5.1.1': {}
+
+  '@octokit/core@6.1.2':
+    dependencies:
+      '@octokit/auth-token': 5.1.1
+      '@octokit/graphql': 8.1.1
+      '@octokit/request': 9.1.3
+      '@octokit/request-error': 6.1.5
+      '@octokit/types': 13.6.2
+      before-after-hook: 3.0.2
+      universal-user-agent: 7.0.2
+
+  '@octokit/endpoint@10.1.1':
+    dependencies:
+      '@octokit/types': 13.6.2
+      universal-user-agent: 7.0.2
+
+  '@octokit/graphql@8.1.1':
+    dependencies:
+      '@octokit/request': 9.1.3
+      '@octokit/types': 13.6.2
+      universal-user-agent: 7.0.2
+
+  '@octokit/openapi-types@22.2.0': {}
+
+  '@octokit/plugin-paginate-rest@11.3.6(@octokit/core@6.1.2)':
+    dependencies:
+      '@octokit/core': 6.1.2
+      '@octokit/types': 13.6.2
+
+  '@octokit/plugin-request-log@5.3.1(@octokit/core@6.1.2)':
+    dependencies:
+      '@octokit/core': 6.1.2
+
+  '@octokit/plugin-rest-endpoint-methods@13.2.6(@octokit/core@6.1.2)':
+    dependencies:
+      '@octokit/core': 6.1.2
+      '@octokit/types': 13.6.2
+
+  '@octokit/request-error@6.1.5':
+    dependencies:
+      '@octokit/types': 13.6.2
+
+  '@octokit/request@9.1.3':
+    dependencies:
+      '@octokit/endpoint': 10.1.1
+      '@octokit/request-error': 6.1.5
+      '@octokit/types': 13.6.2
+      universal-user-agent: 7.0.2
+
+  '@octokit/rest@21.0.2':
+    dependencies:
+      '@octokit/core': 6.1.2
+      '@octokit/plugin-paginate-rest': 11.3.6(@octokit/core@6.1.2)
+      '@octokit/plugin-request-log': 5.3.1(@octokit/core@6.1.2)
+      '@octokit/plugin-rest-endpoint-methods': 13.2.6(@octokit/core@6.1.2)
+
+  '@octokit/types@13.6.2':
+    dependencies:
+      '@octokit/openapi-types': 22.2.0
 
   '@oxlint/darwin-arm64@0.12.0':
     optional: true
@@ -4155,6 +5052,10 @@ snapshots:
 
   ansi-colors@4.1.3: {}
 
+  ansi-escapes@4.3.2:
+    dependencies:
+      type-fest: 0.21.3
+
   ansi-escapes@7.0.0:
     dependencies:
       environment: 1.1.0
@@ -4258,6 +5159,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   base64-js@1.5.1: {}
+
+  before-after-hook@3.0.2: {}
 
   better-path-resolve@1.0.0:
     dependencies:
@@ -4366,6 +5269,12 @@ snapshots:
       slice-ansi: 5.0.0
       string-width: 7.2.0
 
+  cli-width@4.1.0: {}
+
+  clipanion@3.2.1(typanion@3.14.0):
+    dependencies:
+      typanion: 3.14.0
+
   cliui@8.0.1:
     dependencies:
       string-width: 4.2.3
@@ -4383,6 +5292,8 @@ snapshots:
       color-name: 1.1.4
 
   color-name@1.1.4: {}
+
+  colorette@2.0.20: {}
 
   combined-stream@1.0.8:
     dependencies:
@@ -5356,6 +6267,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash-es@4.17.21: {}
+
   lodash.merge@4.6.2: {}
 
   lodash.sortby@4.7.0: {}
@@ -5469,6 +6382,8 @@ snapshots:
   mri@1.2.0: {}
 
   ms@2.1.3: {}
+
+  mute-stream@2.0.0: {}
 
   mz@2.7.0:
     dependencies:
@@ -6167,6 +7082,8 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
+  toml@3.0.0: {}
+
   tr46@0.0.3: {}
 
   tr46@1.0.1:
@@ -6237,11 +7154,15 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
+  typanion@3.14.0: {}
+
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
 
   type-fest@0.20.2: {}
+
+  type-fest@0.21.3: {}
 
   type-fest@4.26.1: {}
 
@@ -6298,6 +7219,8 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
 
+  universal-user-agent@7.0.2: {}
+
   universalify@0.1.2: {}
 
   update-browserslist-db@1.1.1(browserslist@4.24.2):
@@ -6345,6 +7268,8 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.9.0
       fsevents: 2.3.3
+
+  wasm-sjlj@1.0.5: {}
 
   wcwidth@1.0.1:
     dependencies:
@@ -6422,6 +7347,12 @@ snapshots:
 
   word-wrap@1.2.5: {}
 
+  wrap-ansi@6.2.0:
+    dependencies:
+      ansi-styles: 4.3.0
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+
   wrap-ansi@7.0.0:
     dependencies:
       ansi-styles: 4.3.0
@@ -6465,6 +7396,8 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  yoctocolors-cjs@2.1.2: {}
 
   yoga-wasm-web@0.3.3: {}
 
