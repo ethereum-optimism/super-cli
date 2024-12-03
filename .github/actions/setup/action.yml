@@ -14,10 +14,10 @@ runs:
       with:
         components: rustfmt
 
-    - uses: cargo-bins/cargo-binstall@v1.10.15
+    - uses: cargo-bins/cargo-binstall@main
 
     - name: Install Cross
-      run: cargo binstall cross
+      run: cargo-binstall cross
       shell: bash
 
     - name: pnpm install node modules
