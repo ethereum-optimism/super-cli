@@ -19,7 +19,7 @@ build_darwin() {
     for arch in "${darwin_archs[@]}"; do
         rustup target add $arch
         echo "Building for macos architecture: $arch"
-        CLI_BUILD_ARCH=$arch pnpm nx run-many --target=build:bindings --skip-nx-cache
+        pnpm nx run-many --target=build:bindings --skip-nx-cache -- --target $arch
     done
 }
 
@@ -27,7 +27,7 @@ build_linux() {
     for arch in "${linux_archs[@]}"; do
         rustup target add $arch
         echo "Building for linux architecture: $arch"
-        CLI_BUILD_ARCH=$arch pnpm nx run-many --target=build:bindings --skip-nx-cache
+        pnpm nx run-many --target=build:bindings --skip-nx-cache -- --target $arch
     done
 }
 
@@ -35,8 +35,7 @@ build_windows() {
     for arch in "${windows_archs[@]}"; do
         rustup target add $arch
         echo "Building for windows architecture: $arch"
-        export CLI_BUILD_ARCH=$arch
-        pnpm nx run-many --target=build:bindings --skip-nx-cache
+        pnpm nx run-many --target=build:bindings --skip-nx-cache -- --target $arch
     done
 }
 
