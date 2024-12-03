@@ -7,7 +7,7 @@ on:
       - nick-test
 
 jobs:
-  build-native-artifacts:
+  build-artifacts:
     name: Build node bindings
     strategy:
       matrix:
@@ -26,3 +26,20 @@ jobs:
       - name: Build Native Artifacts
         run: ./scripts/release.sh
         shell: bash
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ github.sha }}-${{ matrix.os }}
+          path: packages/**/*.node
+          retention-days: 1
+  download-artifacts:
+    needs: build-artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: my-artifact
+          pattern: build-artifacts-${{ github.sha }}-*
+          merge-multiple: true
+      - run: ls -R my-artifact
