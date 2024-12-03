@@ -45,4 +45,9 @@ jobs:
           path: my-artifact
           pattern: build-artifacts-${{ github.sha }}-*
           merge-multiple: true
-      - run: ls -R my-artifact
+      - name: Copy Artifacts
+        run: ./scripts/copy-artifacts.sh
+        shell: bash
+      - name: List Artifacts
+        run: ls packages/toml-parser
+        shell: bash
