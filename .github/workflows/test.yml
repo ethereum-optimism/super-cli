@@ -24,5 +24,5 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Native Artifacts
-        run: ./scripts/release.sh
         shell: bash
+        run: ./scripts/release.sh
