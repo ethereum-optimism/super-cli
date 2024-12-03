@@ -1,6 +1,6 @@
 {
     "targets": {
-        "build": {
+        "build:bindings": {
             "env": {
                 "CLI_BUILD_ARCH": "$CLI_BUILD_ARCH"
             }
