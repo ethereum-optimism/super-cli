@@ -6,7 +6,7 @@
     "typings": "./index.d.ts",
     "scripts": {
         "build": "napi build --release --platform",
-        "build:bindings": "napi build --release --platform --target $CLI_BUILD_ARCH",
+        "build:bindings": "napi build --release --platform --target $CLI_BUILD_ARCH --use-cross",
         "test": "cargo test",
         "lint": "cargo fmt --check",
         "lint:fix": "cargo fmt && cargo fmt --check",
