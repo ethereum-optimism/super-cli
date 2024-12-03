@@ -8,11 +8,13 @@ darwin_archs=(
 linux_archs=(
     "x86_64-unknown-linux-gnu"
     "aarch64-unknown-linux-gnu"
+    "aarch64-unknown-linux-musl"
+    "x86_64-unknown-linux-musl"
 )
 
 windows_archs=(
     "x86_64-pc-windows-msvc"
-    "x86_64-pc-windows-gnu"
+    "aarch64-pc-windows-msvc"
 )
 
 build_darwin() {
