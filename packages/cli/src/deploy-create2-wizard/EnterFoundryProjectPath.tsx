@@ -1,7 +1,7 @@
 import {useDeployCreate2WizardStore} from '@/deploy-create2-wizard/deployCreate2WizardStore';
 import {Box, Text} from 'ink';
 import {Spinner} from '@inkjs/ui';
-import {useUserContext} from '@/queries/userContext';
+import {useUpdateUserContext, useUserContext} from '@/queries/userContext';
 import {PathInput} from '@/components/path-input/PathInput';
 
 export const EnterFoundryProjectPath = () => {
@@ -9,6 +9,8 @@ export const EnterFoundryProjectPath = () => {
 		useDeployCreate2WizardStore();
 
 	const {data: userContext, isLoading: isUserContextLoading} = useUserContext();
+
+	const {mutate: updateUserContext} = useUpdateUserContext();
 
 	if (wizardState.stepId !== 'enter-foundry-project-path') {
 		throw new Error('Invalid state');
@@ -27,6 +29,12 @@ export const EnterFoundryProjectPath = () => {
 				defaultValue={userContext.forgeProjectPath ?? ''}
 				onSubmit={foundryProjectPath => {
 					const projectPath = foundryProjectPath.trim();
+					if (projectPath !== '') {
+						updateUserContext({
+							forgeProjectPath: projectPath,
+						});
+					}
+
 					submitEnterFoundryProjectPath({
 						foundryProjectPath: projectPath === '' ? '.' : projectPath,
 					});

@@ -1,4 +1,4 @@
-import {Hash, parseEther, toHex} from 'viem';
+import {Hash} from 'viem';
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 
@@ -6,7 +6,6 @@ import {
 	createTransactionTaskId,
 	TransactionTask,
 } from '@/transaction-task/transactionTask';
-import {optimismSepolia} from 'viem/chains';
 
 export type TransactionTaskEntry = {
 	id: string;
@@ -24,17 +23,7 @@ type TransactionTaskStore = {
 
 export const useTransactionTaskStore = create(
 	immer<TransactionTaskStore>(set => ({
-		taskEntryById: {
-			'tester-task-1': {
-				id: 'tester-task-1',
-				request: {
-					chainId: optimismSepolia.id,
-					to: '0x0000000000000000000000000000000000000000',
-					value: toHex(parseEther('0.000000000000000001')),
-				},
-				createdAt: new Date(),
-			},
-		},
+		taskEntryById: {},
 		createTask: (task: TransactionTask) => {
 			set(state => {
 				const id = createTransactionTaskId(task);

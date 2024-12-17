@@ -10,10 +10,9 @@ import {ConfigureConstructorArguments} from '@/deploy-create2-wizard/ConfigureCo
 import {ConfigureSalt} from '@/deploy-create2-wizard/ConfigureSalt';
 import {SelectNetwork} from '@/deploy-create2-wizard/SelectNetwork';
 import {SelectChains} from '@/deploy-create2-wizard/SelectChains';
-import {EnterPrivateKey} from '@/deploy-create2-wizard/EnterPrivateKey';
-import {DeployCreate2Command} from '@/commands/deploy/create2';
 import {getArtifactPathForContract} from '@/forge/foundryProject';
 import {useSaveWizardProgress} from '@/hooks/useSaveWizardProgress';
+import {DeployCreate2Command} from '@/deploy-create2/DeployCreate2Command';
 
 type StepStatus = 'done' | 'current' | 'upcoming';
 
@@ -103,11 +102,7 @@ const WizardProgress = () => {
 export const DeployCreate2Wizard = () => {
 	const {wizardState} = useDeployCreate2WizardStore();
 
-	// TODO: update before alpha release, remove private key step entirely from wizard
-	useSaveWizardProgress('deployCreate2', wizardState, [
-		'completed',
-		'enter-private-key',
-	]);
+	useSaveWizardProgress('deployCreate2', wizardState, ['completed']);
 
 	const stepId = wizardState.stepId;
 
@@ -116,7 +111,7 @@ export const DeployCreate2Wizard = () => {
 			<DeployCreate2Command
 				options={{
 					chains: wizardState.chainNames,
-					privateKey: wizardState.privateKey,
+					// privateKey: wizardState.privateKey,
 					salt: wizardState.salt,
 					forgeArtifactPath: getArtifactPathForContract(
 						wizardState.foundryProjectPath,
@@ -143,7 +138,7 @@ export const DeployCreate2Wizard = () => {
 			{stepId === 'configure-salt' && <ConfigureSalt />}
 			{stepId === 'select-network' && <SelectNetwork />}
 			{stepId === 'select-chains' && <SelectChains />}
-			{stepId === 'enter-private-key' && <EnterPrivateKey />}
+			{/* {stepId === 'enter-private-key' && <EnterPrivateKey />} */}
 		</Box>
 	);
 };

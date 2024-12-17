@@ -10,12 +10,10 @@ import {mainnet, sepolia} from 'viem/chains';
 import {chainConfig} from 'viem/op-stack';
 import * as chains from 'viem/chains';
 
-const viemChainById = {
-	...[...Object.values(chains)].reduce((acc, chain) => {
+const viemChainById = [...Object.values(chains)].reduce((acc, chain) => {
 		acc[chain.id] = chain;
 		return acc;
-	}, {} as Record<number, Chain>),
-};
+	}, {} as Record<number, Chain>);
 
 const chainIdByParentChainName = {
 	mainnet: mainnet.id,

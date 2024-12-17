@@ -1,5 +1,4 @@
 import {zodSupportedNetwork} from '@/superchain-registry/fetchChainList';
-import {zodAddress, zodHex} from '@/validators/schemas';
 import {createWizardStore} from '@/wizard-builder/createWizardStore';
 import {defineWizard, InferStepId} from '@/wizard-builder/defineWizard';
 import {z} from 'zod';
@@ -53,15 +52,15 @@ const deployCreate2WizardStore = defineWizard()
 		title: 'Select Chains',
 		getSummary: state => state.chainNames.join(', '),
 	})
-	.addStep({
-		id: 'enter-private-key',
-		schema: z.object({
-			privateKey: zodHex,
-			address: zodAddress,
-		}),
-		title: 'Enter Private Key',
-		getSummary: state => `${state.address}`,
-	})
+	// .addStep({
+	// 	id: 'enter-private-key',
+	// 	schema: z.object({
+	// 		privateKey: zodHex,
+	// 		address: zodAddress,
+	// 	}),
+	// 	title: 'Enter Private Key',
+	// 	getSummary: state => `${state.address}`,
+	// })
 	.build();
 
 export type DeployCreate2WizardStore = typeof deployCreate2WizardStore;

@@ -1,5 +1,6 @@
 import {
 	completeTransactionTask,
+	getMappingChainById,
 	listTransactionTasks,
 	TransactionTaskEntry,
 } from "@/api";
@@ -20,8 +21,29 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { Address, Chain, Hash } from "viem";
 
-const Task = ({ task }: { task: TransactionTaskEntry }) => {
+const getBaseBlockExplorerUrl = (chain: Chain) => {
+	const result =
+		chain.blockExplorers?.["blockscout"]?.url ||
+		chain.blockExplorers?.default?.url ||
+		"";
+
+	// trim / at the end
+	return result.endsWith("/") ? result.slice(0, -1) : result;
+};
+
+const getBlockExplorerTxHashLink = (chain: Chain, txHash: Hash) => {
+	return `${getBaseBlockExplorerUrl(chain)}/tx/${txHash}`;
+};
+
+const Task = ({
+	task,
+	chain,
+}: {
+	task: TransactionTaskEntry;
+	chain: Chain;
+}) => {
 	const queryClient = useQueryClient();
 	const { sendTransaction, isPending } = useSendTransaction({
 		mutation: {
@@ -50,16 +72,17 @@ const Task = ({ task }: { task: TransactionTaskEntry }) => {
 					{task.request.to}
 				</code>
 			</TableCell>
-			<TableCell>
-				{task.request.value && (
-					<code className="font-mono text-sm">{task.request.value}</code>
-				)}
-			</TableCell>
+
 			<TableCell className="min-w-[160px] flex justify-end pr-4">
 				{task.hash ? (
-					<code className="rounded bg-muted px-2 py-1 text-xs truncate max-w-[300px]">
+					<a
+						href={getBlockExplorerTxHashLink(chain, task.hash)}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="rounded bg-muted px-2 py-1 text-xs truncate max-w-[300px] hover:underline"
+					>
 						{task.hash}
-					</code>
+					</a>
 				) : (
 					<Button
 						size="sm"
@@ -112,11 +135,25 @@ export const TransactionTasks = () => {
 		refetchInterval: 2000,
 	});
 
-	if (error) {
+	const {
+		data: chainByIdResult,
+		isLoading: isChainByIdLoading,
+		error: chainByIdError,
+	} = useQuery({
+		queryKey: ["getMappingChainById"],
+		queryFn: getMappingChainById,
+	});
+
+	if (error || chainByIdError) {
 		return null;
 	}
 
-	if (isLoading || !transactionTasks) {
+	if (
+		isLoading ||
+		!transactionTasks ||
+		isChainByIdLoading ||
+		!chainByIdResult
+	) {
 		return (
 			<div className="flex items-center justify-center p-8">
 				<Loader2 className="h-6 w-6 animate-spin" />
@@ -155,65 +192,69 @@ export const TransactionTasks = () => {
 			</TabsList>
 
 			<TabsContent value="pending">
-				<Card>
-					<CardContent className="">
-						{pendingTasks.length === 0 ? (
+				{pendingTasks.length > 0 ? (
+					<Card>
+						<Table>
+							<TableHeader>
+								<TableRow>
+									<TableHead className="w-[100px]">Chain</TableHead>
+									<TableHead>To</TableHead>
+									<TableHead className="flex justify-end items-center pr-16">
+										Action
+									</TableHead>
+								</TableRow>
+							</TableHeader>
+							<TableBody>
+								{pendingTasks.map((task) => {
+									const chain = chainByIdResult.chainById[task.request.chainId];
+
+									return <Task key={task.id} task={task} chain={chain} />;
+								})}
+							</TableBody>
+						</Table>
+					</Card>
+				) : (
+					<Card>
+						<CardContent className="">
 							<div className="flex items-center justify-center py-12 text-muted-foreground">
 								No pending transactions
 							</div>
-						) : (
-							<div className="rounded-lg border bg-card/50">
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead className="w-[100px]">Chain</TableHead>
-											<TableHead>To</TableHead>
-											<TableHead>Value</TableHead>
-											<TableHead className="flex justify-end items-center pr-6">
-												Action
-											</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										{pendingTasks.map((task) => (
-											<Task key={task.id} task={task} />
-										))}
-									</TableBody>
-								</Table>
-							</div>
-						)}
-					</CardContent>
-				</Card>
+						</CardContent>
+					</Card>
+				)}
 			</TabsContent>
 
 			<TabsContent value="completed">
-				<Card>
-					<CardContent className="pt-6">
-						{completedTasks.length === 0 ? (
+				{completedTasks.length > 0 ? (
+					<Card>
+						<Table>
+							<TableHeader>
+								<TableRow>
+									<TableHead className="w-[100px]">Chain</TableHead>
+									<TableHead>To</TableHead>
+									<TableHead className="flex justify-end items-center pr-6">
+										Transaction Hash
+									</TableHead>
+								</TableRow>
+							</TableHeader>
+							<TableBody>
+								{completedTasks.map((task) => {
+									const chain = chainByIdResult.chainById[task.request.chainId];
+
+									return <Task key={task.id} task={task} chain={chain} />;
+								})}
+							</TableBody>
+						</Table>
+					</Card>
+				) : (
+					<Card>
+						<CardContent className="">
 							<div className="flex items-center justify-center py-12 text-muted-foreground">
 								No completed transactions
 							</div>
-						) : (
-							<div className="rounded-lg border">
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead className="w-[100px]">Chain</TableHead>
-											<TableHead>To</TableHead>
-											<TableHead>Value</TableHead>
-											<TableHead>Transaction Hash</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										{completedTasks.map((task) => (
-											<Task key={task.id} task={task} />
-										))}
-									</TableBody>
-								</Table>
-							</div>
-						)}
-					</CardContent>
-				</Card>
+						</CardContent>
+					</Card>
+				)}
 			</TabsContent>
 		</Tabs>
 	);
