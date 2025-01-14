@@ -1,5 +1,5 @@
 import {queryClient} from '@/commands/_app';
-import {readForgeArtifact} from '@/forge/readForgeArtifact';
+import {readForgeArtifact} from '@/lib/forge/readForgeArtifact';
 import {QueryOptions, useQuery} from '@tanstack/react-query';
 
 export const getForgeArtifactQueryParams = (artifactPath: string) => {

@@ -1,6 +1,6 @@
 import {queryClient} from '@/commands/_app';
 import {queryChains} from '@/queries/chains';
-import {viemChainById} from '@/viemChainById';
+import {viemChainById} from '@/lib/viemChainById';
 import {useQuery} from '@tanstack/react-query';
 import {Chain} from 'viem';
 

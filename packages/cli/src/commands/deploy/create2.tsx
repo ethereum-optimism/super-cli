@@ -2,12 +2,12 @@ import {StatusMessage} from '@inkjs/ui';
 import {zodDeployCreateXCreate2Params} from '@/actions/deployCreateXCreate2';
 import {z} from 'zod';
 import {option} from 'pastel';
-import {DeployCreate2Wizard} from '@/deploy-create2-wizard/DeployCreate2Wizard';
+import {DeployCreate2Wizard} from '@/actions/deploy-create2/wizard/DeployCreate2Wizard';
 import {fromZodError} from 'zod-validation-error';
-import {parseSuperConfigFromTOML} from '@/utils/config';
+import {parseSuperConfigFromTOML} from '@/lib/config';
 
-import {DeployCreate2Command} from '@/deploy-create2/DeployCreate2Command';
-import {SupportedNetwork} from '@/superchain-registry/fetchSuperchainRegistryChainList';
+import {DeployCreate2Command} from '@/actions/deploy-create2/DeployCreate2Command';
+import {SupportedNetwork} from '@/lib/fetchSuperchainRegistryChainList';
 
 const zodDeployCreate2CommandEntrypointOptions = zodDeployCreateXCreate2Params
 	.partial()

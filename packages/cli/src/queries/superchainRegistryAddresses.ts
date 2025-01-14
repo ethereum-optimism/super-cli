@@ -2,7 +2,7 @@ import {queryClient} from '@/commands/_app';
 import {
 	fetchSuperchainRegistryAddresses,
 	SUPERCHAIN_REGISTRY_ADDRESSES_URL,
-} from '@/superchain-registry/fetchSuperchainRegistryAddresses';
+} from '@/lib/fetchSuperchainRegistryAddresses';
 
 const getQueryParams = (chainListURL: string) => {
 	return {

@@ -1,7 +1,7 @@
 import {querySuperchainRegistryAddresses} from '@/queries/superchainRegistryAddresses';
 import {querySuperchainRegistryChainList} from '@/queries/superchainRegistryChainList';
-import {SuperchainRegistryAddresses} from '@/superchain-registry/fetchSuperchainRegistryAddresses';
-import {ChainListItem} from '@/superchain-registry/fetchSuperchainRegistryChainList';
+import {SuperchainRegistryAddresses} from '@/lib/fetchSuperchainRegistryAddresses';
+import {ChainListItem} from '@/lib/fetchSuperchainRegistryChainList';
 import {chainConfig} from 'viem/op-stack';
 import {
 	base,
@@ -13,7 +13,7 @@ import {
 } from 'viem/chains';
 import {defineChain} from 'viem';
 import {queryClient} from '@/commands/_app';
-import {viemChainById} from '@/viemChainById';
+import {viemChainById} from '@/lib/viemChainById';
 
 const TEMP_overrideBlockExplorerUrlByChainId = {
 	[baseSepolia.id]: 'https://base-sepolia.blockscout.com/',

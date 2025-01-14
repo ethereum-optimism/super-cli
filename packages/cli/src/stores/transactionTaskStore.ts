@@ -2,10 +2,7 @@ import {Hash} from 'viem';
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 
-import {
-	createTransactionTaskId,
-	TransactionTask,
-} from '@/transaction-task/transactionTask';
+import {createTransactionTaskId, TransactionTask} from '@/lib/transactionTask';
 
 export type TransactionTaskEntry = {
 	id: string;
