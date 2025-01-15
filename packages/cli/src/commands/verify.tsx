@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {zodVerifyContractParams} from '@/actions/verifyContract';
 import {z} from 'zod';
 import {Badge, Spinner} from '@inkjs/ui';
-import {useStandardJsonInputQuery} from '@/verify/getStandardJsonInputQuery';
+import {useStandardJsonInputQuery} from '@/actions/verify/getStandardJsonInputQuery';
 import {Address, Chain} from 'viem';
 
 import {useMappingChainByIdentifier} from '@/queries/chainByIdentifier';
@@ -11,10 +11,10 @@ import {useMutation} from '@tanstack/react-query';
 import {
 	verifyOnBlockscoutMutation,
 	verifyOnBlockscoutMutationKey,
-} from '@/verify/verifyOnBlockscoutMutation';
-import {getBlockExplorerAddressLink} from '@/utils/blockExplorer';
+} from '@/actions/verify/verifyOnBlockscoutMutation';
+import {getBlockExplorerAddressLink} from '@/lib/blockExplorer';
 import {useForgeArtifact} from '@/queries/forgeArtifact';
-import {ForgeArtifact} from '@/forge/readForgeArtifact';
+import {ForgeArtifact} from '@/lib/forge/readForgeArtifact';
 
 const zodVerifyContractCommandParams = zodVerifyContractParams;
 

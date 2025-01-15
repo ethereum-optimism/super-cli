@@ -2,7 +2,7 @@ import {Hono} from 'hono';
 import {cors} from 'hono/cors';
 import {validator} from 'hono/validator';
 import {useTransactionTaskStore} from '@/stores/transactionTaskStore';
-import {zodHash} from '@/validators/schemas';
+import {zodHash} from '@/lib/schemas';
 import {z} from 'zod';
 import {queryMappingChainById} from '@/queries/chainById';
 

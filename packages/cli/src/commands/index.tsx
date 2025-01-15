@@ -1,5 +1,5 @@
-import {BridgeWizard} from '@/bridge-wizard/BridgeWizard';
-import {DeployCreate2Wizard} from '@/deploy-create2-wizard/DeployCreate2Wizard';
+import {BridgeWizard} from '@/actions/bridge/wizard/BridgeWizard';
+import {DeployCreate2Wizard} from '@/actions/deploy-create2/wizard/DeployCreate2Wizard';
 import {Select} from '@inkjs/ui';
 import {Box, Text} from 'ink';
 import {useState} from 'react';
@@ -7,8 +7,8 @@ import Gradient from 'ink-gradient';
 import BigText from 'ink-big-text';
 import {useUserContext} from '@/queries/userContext';
 import {actionDescriptionByWizardId} from '@/models/userContext';
-import {useBridgeWizardStore} from '@/bridge-wizard/bridgeWizardStore';
-import {useDeployCreate2WizardStore} from '@/deploy-create2-wizard/deployCreate2WizardStore';
+import {useBridgeWizardStore} from '@/actions/bridge/wizard/bridgeWizardStore';
+import {useDeployCreate2WizardStore} from '@/actions/deploy-create2/wizard/deployCreate2WizardStore';
 
 const options = [
 	{label: '🚀 Deploy a contract', value: 'deploy'},
