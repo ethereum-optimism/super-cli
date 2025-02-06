@@ -3,6 +3,8 @@ version: 2.1
 orbs:
   nx: nrwl/nx@1.6.2
   node: circleci/node@6.3.0
+  utils: ethereum-optimism/circleci-utils@dev:first
+
 
 commands:
   setup:
@@ -65,6 +67,17 @@ jobs:
           name: Typecheck
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=typecheck
 
+  using-github-token:
+    executor:
+      name: node/default
+      tag: '22.10'
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Print GitHub Token File Name
+          command: |
+            ls circleci-utils-github-token.secret.never.print
 
 workflows:
   main:
@@ -74,6 +87,9 @@ workflows:
       - typecheck
   ci:
     jobs:
-      - publish-snapshots:
+      - utils/set-github-token:
           context:
-            - super-cli-repo
+            - circleci-repo-super-cli
+      - using-github-token:
+          requires:
+            - utils/set-github-token
