@@ -18,8 +18,24 @@ commands:
       - run:
           name: Build
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=build
+  configure-npm:
+    description: "Configure NPM"
+    steps:
+      - run:
+          name: Set NPM Credentials
+          command: pnpm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+
 
 jobs:
+  publish-snapshots:
+    docker:
+      - image: cimg/node:lts-browsers
+    steps:
+      - checkout
+      - setup
+      - configure-npm
+      - run: pnpm changesets-circle publish-snapshots
+
   lint:
     executor:
       name: node/default
@@ -49,9 +65,15 @@ jobs:
           name: Typecheck
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=typecheck
 
+
 workflows:
   main:
     jobs:
       - lint
       - test
       - typecheck
+  ci:
+    jobs:
+      - publish-snapshots:
+          context:
+            - super-cli-repo
