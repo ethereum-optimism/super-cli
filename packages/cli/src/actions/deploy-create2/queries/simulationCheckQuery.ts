@@ -4,11 +4,23 @@ import {
 	ContractFunctionRevertedError,
 	getAddress,
 	Hex,
+	zeroAddress,
 } from 'viem';
 import {Config} from 'wagmi';
 
 import {simulateContract} from '@wagmi/core';
 import {CREATEX_ADDRESS, createXABI} from '@/util/createx/constants';
+import {supersimNetwork} from '@/util/chains/networks';
+
+// Heuristics for funded accounts on chains
+const getFundedAccountForChain = (chainId: number) => {
+	// @ts-expect-error
+	if (supersimNetwork.chains.map(c => c.id).includes(chainId)) {
+		return '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+	}
+
+	return zeroAddress;
+};
 
 export const simulationCheckQueryKey = (
 	deterministicAddress: Address,
@@ -44,8 +56,7 @@ export const simulationCheckQueryOptions = (
 			try {
 				const simulationResult = await simulateContract(wagmiConfig, {
 					abi: createXABI,
-					// Just a random address
-					account: '0x000000000000000000000000000000000000dead',
+					account: getFundedAccountForChain(chainId),
 					address: CREATEX_ADDRESS,
 					chainId,
 					functionName: 'deployCreate2',

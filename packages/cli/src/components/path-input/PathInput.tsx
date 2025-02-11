@@ -52,15 +52,21 @@ interface PathInputProps {
 export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const [submittedPath, setSubmittedPath] = useState<string | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const lastValueRef = useRef<string>('');
 	const lastSuggestionsRef = useRef<string[]>([]);
 	const tabCountRef = useRef<number>(0);
 
-	// Handle submission
+	// Handle submission - only allow directory paths
 	const handleSubmit = useCallback(
 		(finalValue: string) => {
 			const resolvedPath = normalizePath(finalValue);
+			if (!isDirectory(resolvedPath)) {
+				setError('Please select a valid directory');
+				return;
+			}
+			setError(null);
 			setSubmittedPath(resolvedPath);
 			onSubmit?.(resolvedPath);
 		},
@@ -70,6 +76,7 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 	// Clear suggestions if user manually edits
 	const handleChange = useCallback(() => {
 		setSuggestions([]);
+		setError(null);
 		tabCountRef.current = 0;
 	}, []);
 
@@ -87,19 +94,31 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 		state,
 	});
 
-	const completePath = useCallback((fullPath: string) => {
+	const completeDirectoryPath = useCallback((fullPath: string) => {
 		const dir = path.dirname(fullPath);
 		const base = path.basename(fullPath);
 		if (!fs.existsSync(dir)) {
 			return [];
 		}
 		const files = fs.readdirSync(dir);
+		// Filter to only include directories
+		const dirs = files.filter(file => {
+			const fullFilePath = path.join(dir, file);
+			return isDirectory(fullFilePath);
+		});
 		return base === ''
-			? files.map(f => path.join(dir, f))
-			: files.filter(file => file.startsWith(base)).map(f => path.join(dir, f));
+			? dirs.map(d => path.join(dir, d))
+			: dirs.filter(dir => dir.startsWith(base)).map(d => path.join(dir, d));
 	}, []);
 
-	useInput((_, key) => {
+	useInput((input, key) => {
+		if (key.ctrl && input === 'u') {
+			state.clear();
+			setSuggestions([]);
+			lastSuggestionsRef.current = [];
+			return;
+		}
+
 		if (key.tab) {
 			const currentValue = state.value;
 			const fullPath = normalizePath(currentValue);
@@ -123,28 +142,28 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 					return;
 				} else {
 					// Already ends with slash, attempt to complete items inside
-					const files = fs.readdirSync(fullPath);
+					const dirs = fs
+						.readdirSync(fullPath)
+						.filter(file => isDirectory(path.join(fullPath, file)));
 
-					if (files.length === 0) {
-						// Empty directory
+					if (dirs.length === 0) {
+						// Empty directory or no subdirectories
 						setSuggestions([]);
 						lastSuggestionsRef.current = [];
 						return;
-					} else if (files.length === 1) {
+					} else if (dirs.length === 1) {
 						// Single match: complete it
-						const single = files[0]!;
+						const single = dirs[0]!;
 						for (const char of single) {
 							state.insert(char);
 						}
-						if (isDirectory(path.join(fullPath, single))) {
-							state.insert(path.sep);
-						}
+						state.insert(path.sep);
 						setSuggestions([]);
 						lastSuggestionsRef.current = [];
 						return;
 					} else {
 						// Multiple matches
-						const commonPrefix = getLongestCommonPrefix(files);
+						const commonPrefix = getLongestCommonPrefix(dirs);
 
 						if (commonPrefix.length > 0) {
 							// Can partially complete
@@ -154,14 +173,14 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 							// After partial completion, don't show the list yet (zsh behavior),
 							// another tab press would be needed to show full list.
 							setSuggestions([]);
-							lastSuggestionsRef.current = files.map(f =>
-								path.join(fullPath, f),
+							lastSuggestionsRef.current = dirs.map(d =>
+								path.join(fullPath, d),
 							);
 							return;
 						} else {
 							// No partial completion possible
 							// Show all matches immediately
-							const candidates = files.map(f => path.join(fullPath, f));
+							const candidates = dirs.map(d => path.join(fullPath, d));
 							setSuggestions(candidates);
 							lastSuggestionsRef.current = candidates;
 							return;
@@ -170,8 +189,8 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 				}
 			}
 
-			// Normal file completion logic
-			const candidates = completePath(fullPath);
+			// Normal directory completion logic
+			const candidates = completeDirectoryPath(fullPath);
 			if (candidates.length === 0) {
 				// No matches
 				setSuggestions([]);
@@ -184,9 +203,7 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 				for (const char of completion) {
 					state.insert(char);
 				}
-				if (isDirectory(candidates[0]!)) {
-					state.insert(path.sep);
-				}
+				state.insert(path.sep);
 				setSuggestions([]);
 				lastSuggestionsRef.current = [];
 			} else {
@@ -221,24 +238,22 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 				<Text>{inputValue}</Text>
 			</Box>
 
-			{submittedPath && (
+			{error && (
 				<Box marginTop={1}>
-					<Text color="green">✓ Path selected: </Text>
+					<Text color="red">✗ {error}</Text>
+				</Box>
+			)}
+
+			{submittedPath && !error && (
+				<Box marginTop={1}>
+					<Text color="green">✓ Directory selected: </Text>
 					<Text>{submittedPath}</Text>
 				</Box>
 			)}
 
 			{suggestions.length > 0 && (
 				<Box>
-					<Text>
-						{suggestions
-							.map(s => {
-								const name = path.basename(s);
-								const dir = isDirectory(s);
-								return `${name}${dir ? '/' : ''}`;
-							})
-							.join(' ')}
-					</Text>
+					<Text>{suggestions.map(s => path.basename(s) + '/').join(' ')}</Text>
 				</Box>
 			)}
 		</Box>

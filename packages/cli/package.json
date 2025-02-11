@@ -25,7 +25,7 @@
 		"drizzle"
 	],
 	"dependencies": {
-		"@eth-optimism/viem": "^0.1.0",
+		"@eth-optimism/viem": "^0.3.1",
 		"@hono/node-server": "^1.13.7",
 		"@inkjs/ui": "^2.0.0",
 		"@libsql/client": "^0.14.0",

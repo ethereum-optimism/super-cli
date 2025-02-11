@@ -23,7 +23,21 @@ export const EnterFoundryProjectPath = () => {
 	return (
 		<Box flexDirection="column">
 			<Box>
-				<Text>Enter the path to your foundry project (default: "."):</Text>
+				<Text>Enter the path to your </Text>
+				<Text color="cyan" bold>
+					Foundry
+				</Text>
+				<Text> project </Text>
+				<Text>(press </Text>
+				<Text bold>Tab</Text>
+				<Text> for autocomplete, </Text>
+				<Text bold>Ctrl+U</Text>
+				<Text> to clear, default: </Text>
+				<Text color="green" bold>
+					.
+				</Text>
+				<Text>)</Text>
+				<Text>:</Text>
 			</Box>
 			<PathInput
 				defaultValue={userContext.forgeProjectPath ?? ''}

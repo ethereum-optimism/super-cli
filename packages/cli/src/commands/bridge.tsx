@@ -484,8 +484,7 @@ const getContractWriteParams = ({
 		functionName: 'aggregate3Value',
 		address: '0xcA11bde05977b3631167028862bE2a173976CA11',
 		args: [
-			[
-				...chains.map(chain => {
+			chains.map(chain => {
 					const l1StandardBridgeAddress: Address =
 						// @ts-expect-error
 						chain.contracts?.l1StandardBridge?.[chain.sourceId!]?.address;
@@ -506,7 +505,6 @@ const getContractWriteParams = ({
 						value: amountPerChain,
 					};
 				}),
-			],
 		],
 		value: amountPerChain * BigInt(chains.length),
 	} as const;
