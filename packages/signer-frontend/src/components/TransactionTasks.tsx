@@ -7,7 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { hexToBigInt } from "viem";
-import { useSendTransaction, useSwitchChain } from "wagmi";
+import { useAccount, useSendTransaction, useSwitchChain } from "wagmi";
+import { SendTransactionErrorType } from "@wagmi/core";
 import { Loader2, SendHorizontal, CheckCircle } from "lucide-react";
 import {
 	Table,
@@ -22,6 +23,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Chain, Hash } from "viem";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 const getBaseBlockExplorerUrl = (chain: Chain) => {
 	const result =
@@ -44,6 +46,10 @@ const Task = ({
 	task: TransactionTaskEntry;
 	chain: Chain;
 }) => {
+	const { data: chainByIdResult } = useQuery({
+		queryKey: ["getMappingChainById"],
+		queryFn: getMappingChainById,
+	});
 	const queryClient = useQueryClient();
 	const { sendTransaction, isPending } = useSendTransaction({
 		mutation: {
@@ -55,33 +61,50 @@ const Task = ({
 				toast.success("Transaction sent successfully");
 			},
 			onError: (error) => {
+				const sendTransactionError = error as SendTransactionErrorType;
 				console.error(error);
-				toast.error(`Transaction failed: ${error.message}`);
+				// @ts-expect-error not all errors have shortMessage
+				const message = error.shortMessage || error.message;
+				toast.error(
+					`Transaction failed: ${sendTransactionError.name} ${message}`
+				);
 			},
 		},
 	});
+
+	const { address } = useAccount();
+	const { openConnectModal } = useConnectModal();
 	const { switchChainAsync } = useSwitchChain();
 
+	if (!chainByIdResult) {
+		return null;
+	}
+
 	return (
-		<TableRow className="group">
-			<TableCell>
-				<span className="font-mono text-sm">{task.request.chainId}</span>
+		<TableRow className=" p-0">
+			<TableCell className="flex flex-col justify-center">
+				<div className="">
+					{chainByIdResult.chainById[task.request.chainId].name}
+				</div>
+				<div className="text-muted-foreground text-xs">
+					({task.request.chainId})
+				</div>
 			</TableCell>
-			<TableCell>
+			<TableCell className="">
 				<code className="rounded bg-muted px-2 py-1 text-xs">
 					{task.request.to}
 				</code>
 			</TableCell>
 
-			<TableCell className="min-w-[160px] flex justify-end pr-4">
-				{task.hash ? (
+			<TableCell className="min-w-[160px] text-right">
+				{task.result && task.result.type === "success" ? (
 					<a
-						href={getBlockExplorerTxHashLink(chain, task.hash)}
+						href={getBlockExplorerTxHashLink(chain, task.result.hash)}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="rounded bg-muted px-2 py-1 text-xs truncate max-w-[300px] hover:underline"
 					>
-						{task.hash}
+						{task.result.hash}
 					</a>
 				) : (
 					<Button
@@ -90,6 +113,11 @@ const Task = ({
 						className="w-[120px] transition-colors hover:bg-primary hover:text-primary-foreground"
 						disabled={isPending}
 						onClick={async () => {
+							if (!address) {
+								openConnectModal?.();
+								return;
+							}
+
 							await switchChainAsync({
 								chainId: task.request.chainId,
 							});
@@ -169,8 +197,8 @@ export const TransactionTasks = () => {
 		);
 	}
 
-	const pendingTasks = transactionTasks.filter((task) => !task.hash);
-	const completedTasks = transactionTasks.filter((task) => task.hash);
+	const pendingTasks = transactionTasks.filter((task) => !task.result);
+	const completedTasks = transactionTasks.filter((task) => task.result);
 
 	return (
 		<Tabs defaultValue="pending" className="space-y-4">
@@ -197,7 +225,7 @@ export const TransactionTasks = () => {
 						<Table>
 							<TableHeader>
 								<TableRow>
-									<TableHead className="w-[100px]">Chain</TableHead>
+									<TableHead className="">Chain</TableHead>
 									<TableHead>To</TableHead>
 									<TableHead className="flex justify-end items-center pr-16">
 										Action

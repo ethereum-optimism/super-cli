@@ -25,10 +25,21 @@ const zodTransactionTask = z.object({
 	value: zodHex.optional(),
 });
 
+const zodTaskResult = z.union([
+	z.object({
+		type: z.literal("success"),
+		hash: zodHash,
+	}),
+	z.object({
+		type: z.literal("error"),
+		error: z.string(),
+	}),
+]);
+
 const zodTransactionTaskEntry = z.object({
 	id: z.string(),
 	request: zodTransactionTask,
-	hash: zodHash.optional(),
+	result: zodTaskResult.optional(),
 	createdAt: z.coerce.date(),
 });
 
