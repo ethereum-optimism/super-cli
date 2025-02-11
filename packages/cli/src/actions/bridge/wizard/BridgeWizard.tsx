@@ -12,6 +12,7 @@ import {useSaveWizardProgress} from '@/hooks/useSaveWizardProgress';
 import {SupportedNetwork} from '@/util/fetchSuperchainRegistryChainList';
 import {toCliFlags} from '@/util/toCliFlags';
 import {Box, Text} from 'ink';
+import {BackNavigation} from '@/components/navigation/BackNavigation';
 
 type StepStatus = 'done' | 'current' | 'upcoming';
 
@@ -75,7 +76,17 @@ const WizardProgressForStep = ({stepId}: {stepId: BridgeWizardStepId}) => {
 };
 
 const WizardProgress = () => {
-	const {steps} = useBridgeWizardStore();
+	const {steps, wizardState, goToPreviousStep} = useBridgeWizardStore();
+
+	if (wizardState.stepId === 'completed') {
+		return (
+			<Box>
+				<Text>Completed</Text>
+			</Box>
+		);
+	}
+
+	const isFirstStep = wizardState.stepId === steps[0]?.id;
 
 	return (
 		<Box flexDirection="column">
@@ -84,6 +95,11 @@ const WizardProgress = () => {
 				.map(({id}) => {
 					return <WizardProgressForStep stepId={id} key={id} />;
 				})}
+			{!isFirstStep && (
+				<Box marginTop={1}>
+					<BackNavigation onBack={goToPreviousStep} />
+				</Box>
+			)}
 		</Box>
 	);
 };

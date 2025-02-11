@@ -15,6 +15,7 @@ import {getArtifactPathForContract} from '@/util/forge/foundryProject';
 import {useSaveWizardProgress} from '@/hooks/useSaveWizardProgress';
 import {DeployCreate2Command} from '@/actions/deploy-create2/DeployCreate2Command';
 import {toCliFlags} from '@/util/toCliFlags';
+import {BackNavigation} from '@/components/navigation/BackNavigation';
 
 type StepStatus = 'done' | 'current' | 'upcoming';
 
@@ -82,7 +83,7 @@ const WizardProgressForStep = ({
 };
 
 const WizardProgress = () => {
-	const {steps, wizardState} = useDeployCreate2WizardStore();
+	const {steps, wizardState, goToPreviousStep} = useDeployCreate2WizardStore();
 	if (wizardState.stepId === 'completed') {
 		return (
 			<Box>
@@ -90,6 +91,9 @@ const WizardProgress = () => {
 			</Box>
 		);
 	}
+
+	const isFirstStep = wizardState.stepId === steps[0]?.id;
+
 	return (
 		<Box flexDirection="column">
 			{steps
@@ -97,6 +101,11 @@ const WizardProgress = () => {
 				.map(({id}) => {
 					return <WizardProgressForStep stepId={id} key={id} />;
 				})}
+			{!isFirstStep && (
+				<Box marginTop={1}>
+					<BackNavigation onBack={goToPreviousStep} />
+				</Box>
+			)}
 		</Box>
 	);
 };

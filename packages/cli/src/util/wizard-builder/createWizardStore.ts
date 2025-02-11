@@ -22,6 +22,7 @@ export type DefineStoreType<Steps extends WizardStep<any, any, string>[]> = {
 	wizardState: WizardPossibleStates<Steps>;
 	steps: Steps;
 	setWizardState: (state: WizardPossibleStates<Steps>) => void;
+	goToPreviousStep: () => void;
 } & {
 	[Step in Steps[number] as `submit${CapitalizeWords<Step['id']>}`]: (
 		value: InferFieldsAtStep<Steps, Step['id']>,
@@ -42,6 +43,23 @@ export function createWizardStore<Steps extends WizardStep<any, any, any>[]>(
 	} as PossibleStates;
 
 	const store = create<StoreType>((set, get) => {
+		const goToPreviousStep = () => {
+			const currentState = get().wizardState;
+			const currentStepIndex = wizard.findIndex(
+				step => step.id === currentState.stepId,
+			);
+
+			if (currentStepIndex <= 0) return; // Can't go back from first step
+
+			const prevStepId = wizard[currentStepIndex - 1]!.id;
+			const prevState = {
+				...currentState,
+				stepId: prevStepId,
+			} as PossibleStates;
+
+			set({wizardState: prevState} as StoreType);
+		};
+
 		const submitFunctions = wizard.reduce((acc, step, index) => {
 			const currentStepId = step.id;
 			const nextStepId = wizard[index + 1]?.id || 'completed';
@@ -81,6 +99,7 @@ export function createWizardStore<Steps extends WizardStep<any, any, any>[]>(
 			setWizardState: (state: WizardPossibleStates<WizardType>) => {
 				set({wizardState: state} as StoreType);
 			},
+			goToPreviousStep,
 			...submitFunctions,
 		} as StoreType;
 	});
