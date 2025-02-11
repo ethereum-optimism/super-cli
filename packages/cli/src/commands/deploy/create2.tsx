@@ -55,7 +55,14 @@ const DeployCreate2CommandEntrypoint = ({
 	const parseResult = zodDeployCreateXCreate2Params.safeParse(commandOptions);
 
 	return parseResult.success ? (
-		<DeployCreate2Command options={parseResult.data} />
+		<DeployCreate2Command
+			options={{
+				...parseResult.data,
+				chains: parseResult.data.chains.flatMap(chain =>
+					chain.split(',').map(chain => chain.trim()),
+				),
+			}}
+		/>
 	) : (
 		<StatusMessage variant="error">
 			{

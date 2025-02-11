@@ -22,7 +22,7 @@ export const zodDeployCreateXCreate2Params = z.object({
 				alias: 'cargs',
 			}),
 		)
-		.min(4)
+		.min(1)
 		.optional(),
 	salt: z.string().describe(
 		option({
