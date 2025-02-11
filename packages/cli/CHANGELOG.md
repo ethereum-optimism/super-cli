@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.4
+
+### Patch Changes
+
+- [#63](https://github.com/ethereum-optimism/super-cli/pull/63) [`53e9ba8`](https://github.com/ethereum-optimism/super-cli/commit/53e9ba88c269e02fb5c4932dd9b937c952c7c37b) Thanks [@jakim929](https://github.com/jakim929)! - fixed bug with chainIdentifierToChain and added back navigation
+
 ## 0.0.3
 
 ### Patch Changes
