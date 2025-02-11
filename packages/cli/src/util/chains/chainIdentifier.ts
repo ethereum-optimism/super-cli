@@ -33,6 +33,7 @@ const supersimIdentifierByChainId: Record<number, string> = {
 	902: 'supersim/supersiml2b',
 	903: 'supersim/supersiml2c',
 	904: 'supersim/supersiml2d',
+	905: 'supersim/supersiml2e',
 };
 
 // TODO: this is error prone (and becomes outdated with chainlist updates), update @eth-optimism/viem to export a mapping from name to identifier
