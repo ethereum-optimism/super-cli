@@ -27,14 +27,6 @@ jobs:
       - image: cimg/node:20.11
     steps:
       - checkout
-      # TEMPORARY Since we added the changesets-action submodule
-      - run:
-          name: Sync submodules
-          command: git submodule sync
-      - run:
-          name: Initialize submodules
-          command: git submodule update --init --recursive
-      # END TEMPORARY
       - run:
           name: Setup
           command: |
