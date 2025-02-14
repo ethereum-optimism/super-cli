@@ -3,6 +3,8 @@ version: 2.1
 orbs:
   nx: nrwl/nx@1.6.2
   node: circleci/node@6.3.0
+  utils: ethereum-optimism/circleci-utils@1.0.9
+
 
 commands:
   setup:
@@ -20,6 +22,46 @@ commands:
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=build
 
 jobs:
+  publish-release:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      # TEMPORARY Since we added the changesets-action submodule
+      - run:
+          name: Sync submodules
+          command: git submodule sync
+      - run:
+          name: Initialize submodules
+          command: git submodule update --init --recursive
+      # END TEMPORARY
+      - run:
+          name: Setup
+          command: |
+            # Assuming your setup action installs dependencies
+            pnpm install
+
+      - run:
+          name: Check NPM Token
+          command: |
+            if [ -z "${NPM_TOKEN}" ]; then
+              echo "NPM_TOKEN is not set. Please set it in CircleCI project settings."
+              exit 1
+            fi
+
+      - run:
+          name: Configure NPM Token and Registry
+          command: |
+            npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+
+      - run:
+          name: Verify NPM Token
+          command: npm whoami
+
+      - utils/changesets:
+          createGithubReleases: false
+          publish: "pnpm release:publish"
+          version: "pnpm release:version"
   lint:
     executor:
       name: node/default
@@ -55,3 +97,11 @@ workflows:
       - lint
       - test
       - typecheck
+  release:
+    jobs:
+      - publish-release:
+          context:
+          - circleci-repo-super-cli # for GITHUB_TOKEN_GOVERNANCE && NPM_TOKEN
+          filters:
+            branches:
+              only: main
