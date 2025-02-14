@@ -1,9 +1,6 @@
 import {useDeployCreate2WizardStore} from '@/actions/deploy-create2/wizard/deployCreate2WizardStore';
-import {
-	rollupChainToIdentifier,
-	sourceChainByIdentifier,
-} from '@/util/chains/chainIdentifier';
-import {rollupChains} from '@/util/chains/chains';
+import {rollupChainToIdentifier} from '@/util/chains/chainIdentifier';
+import {networkByName} from '@/util/chains/networks';
 import {MultiSelect} from '@inkjs/ui';
 import {Box, Text} from 'ink';
 import {useState} from 'react';
@@ -16,16 +13,13 @@ export const SelectChains = () => {
 		throw new Error('Invalid state');
 	}
 
-	const sourceChain = sourceChainByIdentifier[wizardState.network]!;
-	const chains = rollupChains.filter(
-		chain => chain.sourceId === sourceChain.id,
-	);
+	const network = networkByName[wizardState.network]!;
 
 	return (
 		<Box flexDirection="column">
 			<Text>
 				<Text color="cyan" bold>
-					Select chains to bridge to{' '}
+					Select chains to deploy to{' '}
 				</Text>
 				<Text color="gray">(</Text>
 				<Text color="yellow">↑↓</Text>
@@ -36,7 +30,7 @@ export const SelectChains = () => {
 				<Text color="gray"> to confirm)</Text>
 			</Text>
 			<MultiSelect
-				options={chains.map(chain => ({
+				options={network.chains.map(chain => ({
 					label: `${chain.name} (${chain.id})`,
 					value: rollupChainToIdentifier(chain).split('/')[1]!,
 				}))}

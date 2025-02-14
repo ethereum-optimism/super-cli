@@ -1,7 +1,6 @@
 import {queryClient} from '@/commands/_app';
 import {queryChains} from '@/queries/chains';
 import {chainById} from '@/util/chains/chains';
-import {viemChainById} from '@/util/viemChainById';
 import {Chain} from 'viem';
 
 const getQueryParams = () => {
@@ -14,7 +13,7 @@ const getQueryParams = () => {
 				acc[chain.id] = chain;
 
 				// Also set the source chain (L1)
-				acc[chain.sourceId] = viemChainById[chain.sourceId]!;
+				acc[chain.sourceId] = chainById[chain.sourceId]!;
 				return acc;
 			}, {} as Record<number, Chain>);
 		},

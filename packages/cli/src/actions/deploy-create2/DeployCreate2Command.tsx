@@ -37,7 +37,11 @@ import {
 	deployCreate2,
 	executeTransactionOperation,
 } from '@/actions/deploy-create2/deployCreate2';
-import {sendAllTransactionTasks} from '@/actions/deploy-create2/sendAllTransactionTasks';
+import {
+	sendAllTransactionTasksWithPrivateKeyAccount,
+	sendAllTransactionTasksWithCustomWalletRpc,
+} from '@/actions/deploy-create2/sendAllTransactionTasks';
+import {getSponsoredSenderWalletRpcUrl} from '@/util/sponsoredSender';
 
 // Prepares any required data or loading state if waiting
 export const DeployCreate2Command = ({
@@ -215,8 +219,16 @@ const DeployCreate2CommandInner = ({
 						onSubmit={async executionOption => {
 							if (executionOption.type === 'privateKey') {
 								setExecutionOption(executionOption);
-								await sendAllTransactionTasks(
+								await sendAllTransactionTasksWithPrivateKeyAccount(
 									privateKeyToAccount(executionOption.privateKey),
+								);
+							} else if (executionOption.type === 'sponsoredSender') {
+								setExecutionOption(executionOption);
+								await sendAllTransactionTasksWithCustomWalletRpc(chainId =>
+									getSponsoredSenderWalletRpcUrl(
+										executionOption.apiKey,
+										chainId,
+									),
 								);
 							} else {
 								setExecutionOption(executionOption);
@@ -390,7 +402,10 @@ const DeployStatus = ({
 		);
 	}
 
-	if (executionOption.type === 'privateKey') {
+	if (
+		executionOption.type === 'privateKey' ||
+		executionOption.type === 'sponsoredSender'
+	) {
 		return (
 			<PrivateKeyExecution
 				chain={chain}

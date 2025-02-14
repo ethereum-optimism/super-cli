@@ -5,6 +5,8 @@ import {
 	SupportedNetwork,
 	zodSupportedNetwork,
 } from '@/util/fetchSuperchainRegistryChainList';
+import {chainIdByParentChainName} from '@/queries/chains';
+import {chainById} from '@/util/chains/chains';
 
 export const SelectNetwork = () => {
 	const {wizardState, submitSelectNetwork} = useDeployCreate2WizardStore();
@@ -18,7 +20,9 @@ export const SelectNetwork = () => {
 			<Text>Select which network the L2 chain is based on</Text>
 			<Select
 				options={zodSupportedNetwork.options.map(network => ({
-					label: network,
+					label: `${network} (${
+						chainById[chainIdByParentChainName[network]]?.name
+					})`,
 					value: network,
 				}))}
 				onChange={(network: string) =>
