@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.6
+
+### Patch Changes
+
+- [#70](https://github.com/ethereum-optimism/super-cli/pull/70) [`87862c0`](https://github.com/ethereum-optimism/super-cli/commit/87862c0f5da41f2d7a8f8a2b7c26abac8499eb3a) Thanks [@tremarkley](https://github.com/tremarkley)! - bump node down to 18.20
+
 ## 0.0.5
 
 ### Patch Changes
