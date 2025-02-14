@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.5
+
+### Patch Changes
+
+- [#65](https://github.com/ethereum-optimism/super-cli/pull/65) [`5a52a70`](https://github.com/ethereum-optimism/super-cli/commit/5a52a7064f47e3932084ee1ef8f153156bb08a4b) Thanks [@jakim929](https://github.com/jakim929)! - added interop-alpha support and sponsored sender flow
+
 ## 0.0.4
 
 ### Patch Changes
