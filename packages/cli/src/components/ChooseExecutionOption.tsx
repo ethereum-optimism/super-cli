@@ -14,6 +14,10 @@ export type ExecutionOption =
 	  }
 	| {
 			type: 'externalSigner';
+	  }
+	| {
+			type: 'sponsoredSender';
+			apiKey: string;
 	  };
 
 export const ChooseExecutionOption = ({
@@ -24,6 +28,8 @@ export const ChooseExecutionOption = ({
 	onSubmit: (option: ExecutionOption) => void;
 }) => {
 	const [chosePrivateKey, setChosePrivateKey] = useState(false);
+	const [choseSponsoredSender, setChoseSponsoredSender] = useState(false);
+
 	return (
 		<Box flexDirection="column" gap={1}>
 			<Box gap={1}>
@@ -37,12 +43,18 @@ export const ChooseExecutionOption = ({
 						label: '🔌 Connect a wallet (Metamask / WalletConnect)',
 						value: 'externalSigner',
 					},
+					{
+						label: '💰 EthDenver sponsored sender',
+						value: 'sponsoredSender',
+					},
 				]}
 				onChange={option => {
 					if (option === 'privateKey') {
 						setChosePrivateKey(true);
 					} else if (option === 'externalSigner') {
 						onSubmit({type: 'externalSigner'});
+					} else if (option === 'sponsoredSender') {
+						setChoseSponsoredSender(true);
 					}
 				}}
 			/>
@@ -50,6 +62,13 @@ export const ChooseExecutionOption = ({
 				<PrivateKeyInput
 					onSubmit={privateKey => {
 						onSubmit({type: 'privateKey', privateKey});
+					}}
+				/>
+			)}
+			{choseSponsoredSender && (
+				<ApiKeyInput
+					onSubmit={apiKey => {
+						onSubmit({type: 'sponsoredSender', apiKey});
 					}}
 				/>
 			)}
@@ -88,6 +107,36 @@ const PrivateKeyInput = ({onSubmit}: {onSubmit: (privateKey: Hex) => void}) => {
 					}
 
 					onSubmit(privateKey);
+				}}
+			/>
+			{errorMessage && (
+				<Box>
+					<Text color="red">{errorMessage ? `❌ ${errorMessage}` : ' '}</Text>
+				</Box>
+			)}
+		</Box>
+	);
+};
+
+const ApiKeyInput = ({onSubmit}: {onSubmit: (apiKey: string) => void}) => {
+	const [errorMessage, setErrorMessage] = useState<string>('');
+	const [resetKey, setResetKey] = useState(0);
+
+	return (
+		<Box flexDirection="column">
+			<Box>
+				<Text bold>Enter your API key for the sponsored sender:</Text>
+			</Box>
+			<TextInput
+				key={resetKey}
+				onSubmit={apiKey => {
+					if (!apiKey || apiKey.trim() === '') {
+						setErrorMessage('API key cannot be empty');
+						setResetKey(prev => prev + 1);
+						return;
+					}
+
+					onSubmit(apiKey.trim());
 				}}
 			/>
 			{errorMessage && (

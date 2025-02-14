@@ -15,6 +15,10 @@ const sourceChains = [
 		identifier: 'supersim',
 		chain: supersimL1,
 	},
+	{
+		identifier: 'interop-alpha',
+		chain: sepolia,
+	},
 ];
 
 export const sourceIdentifierByChainId = sourceChains.reduce((acc, chain) => {
@@ -36,6 +40,11 @@ const supersimIdentifierByChainId: Record<number, string> = {
 	905: 'supersim/supersiml2e',
 };
 
+const interopAlphaIdentifierByChainId: Record<number, string> = {
+	420120000: 'interop-alpha/interop-alpha-0',
+	420120001: 'interop-alpha/interop-alpha-1',
+};
+
 // TODO: this is error prone (and becomes outdated with chainlist updates), update @eth-optimism/viem to export a mapping from name to identifier
 const superchainRegistryIdentifierByChainId =
 	superchainRegistryChainList.reduce((acc, chainListItem) => {
@@ -46,6 +55,7 @@ const superchainRegistryIdentifierByChainId =
 const identifierByChainId = {
 	...superchainRegistryIdentifierByChainId,
 	...supersimIdentifierByChainId,
+	...interopAlphaIdentifierByChainId,
 };
 
 export const rollupChainToIdentifier = (chain: Chain) => {

@@ -13,7 +13,8 @@ import {
 } from 'viem/chains';
 import {defineChain} from 'viem';
 import {queryClient} from '@/commands/_app';
-import {viemChainById} from '@/util/viemChainById';
+import {chainById} from '@/util/chains/chains';
+import {supersimL1} from '@eth-optimism/viem/chains';
 
 const TEMP_overrideBlockExplorerUrlByChainId = {
 	[baseSepolia.id]: 'https://base-sepolia.blockscout.com/',
@@ -22,10 +23,12 @@ const TEMP_overrideBlockExplorerUrlByChainId = {
 	[optimism.id]: 'https://optimism.blockscout.com/',
 } as Record<number, string>;
 
-const chainIdByParentChainName = {
+export const chainIdByParentChainName = {
 	mainnet: mainnet.id,
 	sepolia: sepolia.id,
-	'sepolia-dev-0': sepolia.id,
+	// 'sepolia-dev-0': sepolia.id,
+	'interop-alpha': sepolia.id,
+	supersim: supersimL1.id,
 } as const;
 
 const toViemChain = (
@@ -33,13 +36,11 @@ const toViemChain = (
 	superchainRegistryAddresses: SuperchainRegistryAddresses,
 ) => {
 	const name = chainListItem.identifier.split('/')[1] as string;
-	// @ts-expect-error - will remove this file soon anyway
 	const sourceId = chainIdByParentChainName[chainListItem.parent.chain];
 	const chainId = chainListItem.chainId;
 
 	// Not all viem chain definitions have this, so manually overriding it here
 	const parametersToAdd = {
-		// @ts-expect-error - will remove this file soon anyway
 		sourceId: chainIdByParentChainName[chainListItem.parent.chain],
 		contracts: {
 			...chainConfig.contracts,
@@ -60,7 +61,7 @@ const toViemChain = (
 		},
 	};
 
-	const viemChain = viemChainById[chainListItem.chainId];
+	const viemChain = chainById[chainListItem.chainId];
 
 	if (viemChain) {
 		return defineChain({

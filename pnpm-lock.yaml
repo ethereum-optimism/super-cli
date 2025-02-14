@@ -22,8 +22,8 @@ importers:
   packages/cli:
     dependencies:
       '@eth-optimism/viem':
-        specifier: ^0.3.1
-        version: 0.3.1(viem@2.21.41(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
+        specifier: ^0.3.2
+        version: 0.3.2(viem@2.21.41(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))
       '@hono/node-server':
         specifier: ^1.13.7
         version: 1.13.7(hono@4.6.14)
@@ -1194,8 +1194,8 @@ packages:
     resolution: {integrity: sha512-zSkKow6H5Kdm0ZUQUB2kV5JIXqoG0+uH5YADhaEHswm664N9Db8dXSi0nMJpacpMf+MyyglF1vnZohpEg5yUtg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eth-optimism/viem@0.3.1':
-    resolution: {integrity: sha512-ibm603A+ByPOmi7XpGoZkbXI3NiyFRPzzBNB+6I/b4Bzc6Ri5aiM9dbxMiTYIuz7TaZmRqKcDFMoiaA16K3agw==}
+  '@eth-optimism/viem@0.3.2':
+    resolution: {integrity: sha512-oH8T3uY8oTPMNF1ZHI6k6i226w9KuhMGT/KEeNhdaR9U8ertzITW095nPuQoD8OYtK7o+3kJuPa9wJciwEeP1Q==}
     peerDependencies:
       viem: ^2.17.9
 
@@ -6293,7 +6293,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@eth-optimism/viem@0.3.1(viem@2.21.41(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
+  '@eth-optimism/viem@0.3.2(viem@2.21.41(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8))':
     dependencies:
       viem: 2.21.41(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.23.8)
 

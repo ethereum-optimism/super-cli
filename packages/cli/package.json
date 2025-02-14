@@ -13,8 +13,8 @@
 		"build": "tsc && resolve-tspaths && pnpm copy:signer-frontend",
 		"build:watch": "tsc --watch",
 		"dev": "tsx src/cli.tsx",
-		"lint": "oxlint",
-		"lint:fix": "oxlint --fix",
+		"lint": "oxlint && pnpm prettier --check \"**/*.{ts,tsx}\"",
+		"lint:fix": "oxlint --fix && pnpm prettier \"**/*.{ts,tsx}\" --write --loglevel=warn",
 		"start": "node dist/cli.js",
 		"typecheck": "tsc --noEmit",
 		"copy:signer-frontend": "cp -r ../signer-frontend/dist dist/signer-frontend",
@@ -25,7 +25,7 @@
 		"drizzle"
 	],
 	"dependencies": {
-		"@eth-optimism/viem": "^0.3.1",
+		"@eth-optimism/viem": "^0.3.2",
 		"@hono/node-server": "^1.13.7",
 		"@inkjs/ui": "^2.0.0",
 		"@libsql/client": "^0.14.0",

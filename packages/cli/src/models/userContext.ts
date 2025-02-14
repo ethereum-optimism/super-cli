@@ -2,6 +2,10 @@ import {DB} from '@/db/database';
 import {InferInsertModel, InferSelectModel} from 'drizzle-orm';
 import {eq} from 'drizzle-orm';
 import {int, sqliteTable, text} from 'drizzle-orm/sqlite-core';
+import {
+	transformValueToBigInt,
+	transformValueToSerializable,
+} from '@/util/serialization';
 
 const singletonId = 'singleton';
 
@@ -34,10 +38,19 @@ export const updateUserContext = async (
 	db: DB,
 	context: Partial<InferInsertModel<typeof userContextTable>>,
 ) => {
+	const contextToSave = {...context};
+
+	// Transform any BigInt values to serializable format
+	if (contextToSave.lastWizardState !== undefined) {
+		contextToSave.lastWizardState = transformValueToSerializable(
+			contextToSave.lastWizardState,
+		);
+	}
+
 	return await db
 		.update(userContextTable)
 		.set({
-			...context,
+			...contextToSave,
 			updatedAt: new Date().getTime(),
 		})
 		.where(eq(userContextTable.id, singletonId));
@@ -58,5 +71,12 @@ export const getUserContext = async (db: DB): Promise<UserContext> => {
 		throw new Error('Multiple user contexts found');
 	}
 
-	return results[0]!;
+	const context = results[0]!;
+
+	// Transform serialized BigInt values back to actual BigInt
+	if (context.lastWizardState) {
+		context.lastWizardState = transformValueToBigInt(context.lastWizardState);
+	}
+
+	return context;
 };

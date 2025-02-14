@@ -1,4 +1,5 @@
 import {
+	interopAlphaChains,
 	mainnetChains,
 	sepoliaChains,
 	supersimChains,
@@ -7,34 +8,43 @@ import {
 import {Chain, mainnet, sepolia} from 'viem/chains';
 
 type Network = {
+	name: string;
 	sourceChain: Chain;
 	chains: Chain[];
 };
 
 export const mainnetNetwork = {
+	name: 'mainnet',
 	sourceChain: mainnet,
 	chains: mainnetChains,
 } as const satisfies Network;
 
 export const sepoliaNetwork = {
+	name: 'sepolia',
 	sourceChain: sepolia,
 	chains: sepoliaChains,
 } as const satisfies Network;
 
 export const supersimNetwork = {
+	name: 'supersim',
 	sourceChain: supersimL1,
 	chains: supersimChains,
 } as const satisfies Network;
 
-// TODO: update this
-export const sepoliaDev0Network = {
+export const interopAlphaNetwork = {
+	name: 'interop-alpha',
 	sourceChain: sepolia,
-	chains: [],
+	chains: interopAlphaChains,
 } as const satisfies Network;
 
 export const networks = [
 	mainnetNetwork,
 	sepoliaNetwork,
-	sepoliaDev0Network,
+	interopAlphaNetwork,
 	supersimNetwork,
 ];
+
+export const networkByName = networks.reduce((acc, network) => {
+	acc[network.name] = network;
+	return acc;
+}, {} as Record<string, Network>);

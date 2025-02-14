@@ -10,7 +10,7 @@ import {zodSupportedNetwork} from '@/util/fetchSuperchainRegistryChainList';
 import {createTransactionTaskId} from '@/util/transactionTask';
 import {getBlockExplorerTxHashLink} from '@/util/blockExplorer';
 import {zodAddress, zodPrivateKey, zodValueAmount} from '@/util/schemas';
-import {viemChainById} from '@/util/viemChainById';
+import {chainById} from '@/util/chains/chains';
 import {Badge, Spinner} from '@inkjs/ui';
 import {Box, Text} from 'ink';
 import {option} from 'pastel';
@@ -99,7 +99,7 @@ export const BridgeEntrypoint = ({
 		chain => chainByIdentifier[`${options.network}/${chain}`]!,
 	);
 
-	const sourceChain = viemChainById[chains[0]!.sourceId!]!;
+	const sourceChain = chainById[chains[0]!.sourceId!]!;
 
 	// Defaults to the private key address if no recipient is provided
 	const recipientAddress =
@@ -485,26 +485,26 @@ const getContractWriteParams = ({
 		address: '0xcA11bde05977b3631167028862bE2a173976CA11',
 		args: [
 			chains.map(chain => {
-					const l1StandardBridgeAddress: Address =
-						// @ts-expect-error
-						chain.contracts?.l1StandardBridge?.[chain.sourceId!]?.address;
+				const l1StandardBridgeAddress: Address =
+					// @ts-expect-error
+					chain.contracts?.l1StandardBridge?.[chain.sourceId!]?.address;
 
-					if (!l1StandardBridgeAddress) {
-						// Invariant: we should always have a l1StandardBridge defined (see chains.ts)
-						throw new Error('l1StandardBridge not found');
-					}
+				if (!l1StandardBridgeAddress) {
+					// Invariant: we should always have a l1StandardBridge defined (see chains.ts)
+					throw new Error('l1StandardBridge not found');
+				}
 
-					return {
-						target: l1StandardBridgeAddress,
-						allowFailure: false,
-						callData: encodeFunctionData({
-							abi: l1StandardBridgeAbi,
-							functionName: 'bridgeETHTo',
-							args: [recipientAddress, 1000000, toHex('')],
-						}),
-						value: amountPerChain,
-					};
-				}),
+				return {
+					target: l1StandardBridgeAddress,
+					allowFailure: false,
+					callData: encodeFunctionData({
+						abi: l1StandardBridgeAbi,
+						functionName: 'bridgeETHTo',
+						args: [recipientAddress, 1000000, toHex('')],
+					}),
+					value: amountPerChain,
+				};
+			}),
 		],
 		value: amountPerChain * BigInt(chains.length),
 	} as const;

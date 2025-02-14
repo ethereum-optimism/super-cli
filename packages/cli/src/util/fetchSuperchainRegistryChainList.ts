@@ -3,7 +3,7 @@ import {z} from 'zod';
 export const zodSupportedNetwork = z.enum([
 	'mainnet',
 	'sepolia',
-	'sepolia-dev-0',
+	'interop-alpha',
 	'supersim',
 ]);
 
