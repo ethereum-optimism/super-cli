@@ -264,6 +264,10 @@ const CompletedOrVerify = ({
 	forgeArtifact: ForgeArtifact;
 }) => {
 	if (!shouldVerify) {
+		// TODO: hacky way to quit until we remove pastel
+		setTimeout(() => {
+			process.exit(0);
+		}, 1);
 		return (
 			<Box>
 				<Text>Contract is successfully deployed to all chains</Text>
