@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.7
+
+### Patch Changes
+
+- [#72](https://github.com/ethereum-optimism/super-cli/pull/72) [`0079643`](https://github.com/ethereum-optimism/super-cli/commit/00796432e682e327bf3a3a962a482a4b28d635ee) Thanks [@jakim929](https://github.com/jakim929)! - added exit when finished deploying
+
 ## 0.0.6
 
 ### Patch Changes
