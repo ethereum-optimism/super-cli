@@ -32,7 +32,7 @@ commands:
           version: '9'
       - run:
           name: Install pnpm dependencies
-          command: pnpm install
+          command: pnpm install --frozen-lockfile
       - nx/set-shas
       - run:
           name: Build
