@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Setup
           command: |
-            pnpm install
+            pnpm install --frozen-lockfile
           environment:
             NPM_TOKEN: nada
 
@@ -74,7 +74,7 @@ jobs:
 
       - run:
           name: Build
-          command: pnpm build
+          command: pnpm nx run-many --target=build
           environment:
             NPM_TOKEN: nada
 
@@ -88,7 +88,9 @@ jobs:
           createGithubReleases: false
           publish: "pnpm release:publish"
           version: "pnpm release:version"
-  lint:
+
+
+  check:
     executor:
       name: node/default
       tag: '22.10'
@@ -97,32 +99,17 @@ jobs:
       - run:
           name: Lint
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=lint
-  test:
-    executor:
-      name: node/default
-      tag: '22.10'
-    steps:
-      - setup
       - run:
           name: Unit Tests
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=test
-
-  typecheck:
-    executor:
-      name: node/default
-      tag: '22.10'
-    steps:
-      - setup
       - run:
           name: Typecheck
           command: pnpm nx affected --base=$NX_BASE --head=$NX_HEAD --target=typecheck
 
 workflows:
-  main:
+  check-workflow:
     jobs:
-      - lint
-      - test
-      - typecheck
+      - check
   release:
     jobs:
       - publish-to-npm:
