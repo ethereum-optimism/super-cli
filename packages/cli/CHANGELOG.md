@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.8
+
+### Patch Changes
+
+- [#75](https://github.com/ethereum-optimism/super-cli/pull/75) [`25cafbf`](https://github.com/ethereum-optimism/super-cli/commit/25cafbf3ed41393591044830503a8d76cb014d6b) Thanks [@tremarkley](https://github.com/tremarkley)! - bump nvmrc to 20.10
+
 ## 0.0.7
 
 ### Patch Changes
