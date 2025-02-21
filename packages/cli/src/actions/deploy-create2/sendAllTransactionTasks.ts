@@ -13,16 +13,29 @@ export const sendAllTransactionTasksWithPrivateKeyAccount = async (
 ) => {
 	const taskEntryById = useTransactionTaskStore.getState().taskEntryById;
 
-	await Promise.all(
-		Object.values(taskEntryById).map(async task => {
-			const hash = await sendTransaction(wagmiConfig, {
-				to: task.request.to,
-				data: task.request.data,
-				account,
-				chainId: task.request.chainId,
-			});
+	// Group transactions by chainId
+	const tasksByChain = Object.values(taskEntryById).reduce((acc, task) => {
+		const chainId = task.request.chainId;
+		if (!acc[chainId]) {
+			acc[chainId] = [];
+		}
+		acc[chainId].push(task);
+		return acc;
+	}, {} as Record<number, (typeof taskEntryById)[string][]>);
 
-			onTaskSuccess(task.id, hash);
+	// Process each chain's transactions sequentially, but different chains can run in parallel
+	await Promise.all(
+		Object.entries(tasksByChain).map(async ([_, chainTasks]) => {
+			for (const task of chainTasks) {
+				const hash = await sendTransaction(wagmiConfig, {
+					to: task.request.to,
+					data: task.request.data,
+					account,
+					chainId: task.request.chainId,
+				});
+
+				onTaskSuccess(task.id, hash);
+			}
 		}),
 	);
 };
