@@ -9,7 +9,7 @@ const zodCompilerOutputSource = z.object({
 	license: z.string(),
 });
 
-const zodForgeArtifact = z.object({
+export const zodForgeArtifact = z.object({
 	abi: Abi,
 	bytecode: z.object({
 		object: zodHex,

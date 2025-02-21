@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {Address, Hex} from 'viem';
+import {Account, Address, Hex} from 'viem';
 import {estimateL1Fee} from 'viem/op-stack';
 import {useEstimateGas, usePublicClient, useGasPrice} from 'wagmi';
 
@@ -11,7 +11,7 @@ export const useGasEstimation = ({
 }: {
 	to: Address;
 	data: Hex;
-	account: Address;
+	account: Account | Address;
 	chainId: number;
 }) => {
 	const publicClient = usePublicClient({
@@ -63,7 +63,10 @@ export const useGasEstimation = ({
 		l2GasPriceError ||
 		undefined;
 
-	const areValuesAvailable = estimatedL1Fee && estimatedL2Gas && l2GasPrice;
+	const areValuesAvailable =
+		estimatedL1Fee !== undefined &&
+		estimatedL2Gas !== undefined &&
+		l2GasPrice !== undefined;
 
 	if (isLoading || !areValuesAvailable) {
 		return {
