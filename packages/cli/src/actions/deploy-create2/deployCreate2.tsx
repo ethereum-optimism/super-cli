@@ -8,41 +8,35 @@ import {fromFoundryArtifactPath} from '@/util/forge/foundryProject';
 
 import {runOperation, runOperationsMany} from '@/stores/operationStore';
 import {requestTransactionTask} from '@/stores/transactionTaskStore';
-import {
-	Config,
-	getTransaction,
-	sendTransaction,
-	waitForTransactionReceipt,
-} from '@wagmi/core';
-import {Address, Chain, encodeFunctionData, Hex, PrivateKeyAccount} from 'viem';
-import {wagmiConfig} from '@/commands/_app';
+import {Config, getTransaction, waitForTransactionReceipt} from '@wagmi/core';
+import {Address, Chain, encodeFunctionData, Hex} from 'viem';
+import {TxSender} from '@/util/TxSender';
 
 export const executeTransactionOperation = ({
 	chainId,
 	deterministicAddress,
 	initCode,
 	baseSalt,
-	account,
+	txSender,
 }: {
 	chainId: number;
 	deterministicAddress: Address;
 	initCode: Hex;
 	baseSalt: Hex;
-	account?: PrivateKeyAccount;
+	txSender?: TxSender;
 }) => {
 	return {
 		key: ['executeTransaction', chainId, deterministicAddress],
 		fn: async () => {
-			if (account) {
-				return await sendTransaction(wagmiConfig, {
+			if (txSender) {
+				return await txSender.sendTx({
+					chainId,
 					to: CREATEX_ADDRESS,
 					data: encodeFunctionData({
 						abi: createXABI,
 						functionName: 'deployCreate2',
 						args: [baseSalt, initCode],
 					}),
-					account,
-					chainId,
 				});
 			}
 			return await requestTransactionTask({
@@ -102,7 +96,7 @@ export const deployCreate2 = async ({
 	chains,
 	foundryArtifactPath,
 	contractArguments,
-	account,
+	txSender,
 }: {
 	wagmiConfig: Config;
 	deterministicAddress: Address;
@@ -111,7 +105,7 @@ export const deployCreate2 = async ({
 	chains: Chain[];
 	foundryArtifactPath: string;
 	contractArguments: string[];
-	account?: PrivateKeyAccount;
+	txSender?: TxSender;
 }) => {
 	const transactionHashes = await runOperationsMany(
 		chains.map(chain =>
@@ -120,7 +114,7 @@ export const deployCreate2 = async ({
 				deterministicAddress,
 				initCode,
 				baseSalt,
-				account,
+				txSender,
 			}),
 		),
 	);

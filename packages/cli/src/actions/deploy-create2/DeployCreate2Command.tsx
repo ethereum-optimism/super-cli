@@ -28,6 +28,7 @@ import {
 import {getSponsoredSenderWalletRpcUrl} from '@/util/sponsoredSender';
 import {DeployStatus} from '@/actions/deploy-create2/components/DeployStatus';
 import {DeploymentParams} from '@/actions/deploy-create2/types';
+import {createTxSenderFromPrivateKeyAccount} from '@/util/TxSender';
 
 // Prepares any required data or loading state if waiting
 export const DeployCreate2Command = ({
@@ -116,6 +117,13 @@ const DeployCreate2CommandInner = ({
 				throw new Error('No chains to deploy to');
 			}
 
+			const txSender = options.privateKey
+				? createTxSenderFromPrivateKeyAccount(
+						wagmiConfig,
+						privateKeyToAccount(options.privateKey),
+				  )
+				: undefined;
+
 			return deployCreate2({
 				wagmiConfig,
 				deterministicAddress,
@@ -124,9 +132,7 @@ const DeployCreate2CommandInner = ({
 				chains: chainsToDeployTo,
 				foundryArtifactPath: options.forgeArtifactPath,
 				contractArguments: options.constructorArgs?.split(',') ?? [],
-				account: options.privateKey
-					? privateKeyToAccount(options.privateKey)
-					: undefined,
+				txSender,
 			});
 		},
 	});

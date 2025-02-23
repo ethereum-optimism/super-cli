@@ -40,7 +40,12 @@ export const PrivateKeyExecution = ({
 	}
 
 	if (error) {
-		return <Text>Error deploying contract: {error.message}</Text>;
+		return (
+			<Text>
+				{/* @ts-expect-error */}
+				Error deploying contract: {error.shortMessage || error.message}
+			</Text>
+		);
 	}
 
 	if (isReceiptLoading) {
