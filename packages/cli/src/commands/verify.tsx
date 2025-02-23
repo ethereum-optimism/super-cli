@@ -60,11 +60,13 @@ export const VerifyCommandInner = ({
 	forgeArtifactPath,
 	contractAddress,
 	forgeArtifact,
+	index,
 }: {
 	chains: Chain[];
 	forgeArtifactPath: string;
 	contractAddress: Address;
 	forgeArtifact: ForgeArtifact;
+	index?: number;
 }) => {
 	const {data: standardJsonInput, isLoading: isStandardJsonInputLoading} =
 		useStandardJsonInputQuery(forgeArtifactPath);
@@ -89,8 +91,9 @@ export const VerifyCommandInner = ({
 	return (
 		<Box flexDirection="column">
 			<Box marginBottom={1}>
-				<Text bold underline>
-					Contract Verification (Blockscout)
+				<Text bold>
+					Verify{index !== undefined ? ` ${index + 1}` : ''}:{' '}
+					<Text color="cyan">{forgeArtifactPath}</Text>
 				</Text>
 			</Box>
 			<Box flexDirection="row" paddingLeft={2}>

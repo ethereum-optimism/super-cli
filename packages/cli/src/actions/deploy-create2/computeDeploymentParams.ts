@@ -1,19 +1,21 @@
 import {computeCreate2Address} from '@/util/createx/computeCreate2Address';
 import {createBaseSalt, createGuardedSalt} from '@/util/createx/salt';
-import {ForgeArtifact} from '@/util/forge/readForgeArtifact';
 import {getEncodedConstructorArgs} from '@/util/abi';
 import {concatHex, keccak256, toHex} from 'viem';
+import {
+	ComputedDeploymentParams,
+	DeploymentIntent,
+} from '@/actions/deploy-create2/types';
 
 // Prepares params for deployCreate2
-export const getDeployCreate2Params = ({
+export const computeDeploymentParams = ({
 	forgeArtifact,
 	constructorArgs,
 	salt,
-}: {
-	forgeArtifact: ForgeArtifact;
-	constructorArgs?: string;
-	salt: string;
-}) => {
+}: Pick<
+	DeploymentIntent,
+	'forgeArtifact' | 'constructorArgs' | 'salt'
+>): ComputedDeploymentParams => {
 	const baseSalt = createBaseSalt({
 		shouldAddRedeployProtection: false,
 		additionalEntropy: toHex(salt, {size: 32}),
@@ -25,7 +27,7 @@ export const getDeployCreate2Params = ({
 
 	const encodedConstructorArgs = getEncodedConstructorArgs(
 		forgeArtifact.abi,
-		constructorArgs?.split(','),
+		constructorArgs,
 	);
 
 	const initCode = encodedConstructorArgs

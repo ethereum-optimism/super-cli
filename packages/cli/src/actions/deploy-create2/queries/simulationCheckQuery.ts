@@ -11,6 +11,7 @@ import {Config} from 'wagmi';
 import {simulateContract} from '@wagmi/core';
 import {CREATEX_ADDRESS, createXABI} from '@/util/createx/constants';
 import {supersimNetwork} from '@/util/chains/networks';
+import {ComputedDeploymentParams} from '@/actions/deploy-create2/types';
 
 // Heuristics for funded accounts on chains
 const getFundedAccountForChain = (chainId: number) => {
@@ -38,10 +39,7 @@ export const simulationCheckQueryOptions = (
 		initCode,
 		baseSalt,
 		chainId,
-	}: {
-		deterministicAddress: Address;
-		initCode: Hex;
-		baseSalt: Hex;
+	}: ComputedDeploymentParams & {
 		chainId: number;
 	},
 ) => {
