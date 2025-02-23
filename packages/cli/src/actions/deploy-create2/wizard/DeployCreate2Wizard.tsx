@@ -16,6 +16,7 @@ import {useSaveWizardProgress} from '@/hooks/useSaveWizardProgress';
 import {DeployCreate2Command} from '@/actions/deploy-create2/DeployCreate2Command';
 import {toCliFlags} from '@/util/toCliFlags';
 import {BackNavigation} from '@/components/navigation/BackNavigation';
+import path from 'path';
 
 type StepStatus = 'done' | 'current' | 'upcoming';
 
@@ -124,10 +125,13 @@ export const DeployCreate2Wizard = ({
 	if (stepId === 'completed') {
 		const options = {
 			chains: wizardState.chainNames,
-			salt: wizardState.salt,
-			forgeArtifactPath: getArtifactPathForContract(
-				wizardState.foundryProjectPath,
-				wizardState.selectedContract,
+			salt: `"${wizardState.salt}"`,
+			forgeArtifactPath: path.relative(
+				process.cwd(),
+				getArtifactPathForContract(
+					wizardState.foundryProjectPath,
+					wizardState.selectedContract,
+				),
 			),
 			constructorArgs: wizardState.constructorArgs.join(','),
 			network: wizardState.network,

@@ -9,6 +9,7 @@ import {useQueries} from '@tanstack/react-query';
 import {getForgeArtifactQueryParams} from '@/queries/forgeArtifact';
 import {
 	resolveContractDeploymentParams,
+	ResolvedContractDeploymentParams,
 	UnresolvedConstructorArg,
 	UnresolvedContractDeploymentParams,
 	zodTarget,
@@ -221,9 +222,18 @@ const DeployCreate2ManyWithConfig = ({
 			),
 	);
 
-	const resolvedContractDeploymentParams = resolveContractDeploymentParams(
-		unresolvedContractDeploymentParams,
-	);
+	// TODO: remove this try/catch inside a render fn
+	let resolvedContractDeploymentParams: ResolvedContractDeploymentParams[];
+	try {
+		resolvedContractDeploymentParams = resolveContractDeploymentParams(
+			unresolvedContractDeploymentParams,
+		);
+	} catch (e) {
+		if (e instanceof Error) {
+			return <StatusMessage variant="error">{e.message}</StatusMessage>;
+		}
+		throw e;
+	}
 
 	const flattenedChains = config.chains.flatMap(chain => chain.split(','));
 	const chains = flattenedChains.map(x => {

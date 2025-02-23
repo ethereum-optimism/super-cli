@@ -30,7 +30,7 @@ export const getArtifactPathForContract = (
 	);
 };
 
-const findFoundryRoot = async (
+export const findFoundryRootUp = async (
 	startPath: string,
 	maxDepth = 6,
 ): Promise<string> => {
@@ -63,6 +63,54 @@ const findFoundryRoot = async (
 	);
 };
 
+export const findFoundryRootDown = async (
+	startPath: string,
+	maxDepth = 6,
+): Promise<string> => {
+	const searchDir = async (
+		currentPath: string,
+		depth: number,
+	): Promise<string> => {
+		if (depth > maxDepth) {
+			throw new Error(
+				`Could not find foundry.toml within ${maxDepth} subdirectories`,
+			);
+		}
+
+		try {
+			const entries = await fs.readdir(currentPath, {withFileTypes: true});
+
+			// First check if foundry.toml exists in current directory
+			if (
+				entries.some(entry => entry.isFile() && entry.name === 'foundry.toml')
+			) {
+				return currentPath;
+			}
+
+			// Then recursively check subdirectories
+			for (const entry of entries) {
+				if (entry.isDirectory()) {
+					try {
+						const subdirPath = path.join(currentPath, entry.name);
+						return await searchDir(subdirPath, depth + 1);
+					} catch (e) {
+						// Continue searching other directories if one branch fails
+						continue;
+					}
+				}
+			}
+
+			throw new Error('No foundry.toml found in this directory branch');
+		} catch (e) {
+			throw new Error(
+				`Could not find foundry.toml within ${maxDepth} subdirectories`,
+			);
+		}
+	};
+
+	return searchDir(startPath, 0);
+};
+
 export type FoundryProject = {
 	baseDir: string;
 	srcDir: string;
@@ -80,7 +128,9 @@ export const fromBasePath = (baseDir: string): FoundryProject => {
 // artifact is a .json file in the out/ directory
 export const fromFoundryArtifactPath = async (foundryArtifactPath: string) => {
 	const absolutePath = path.resolve(foundryArtifactPath);
-	const foundryProjectPath = await findFoundryRoot(path.dirname(absolutePath));
+	const foundryProjectPath = await findFoundryRootUp(
+		path.dirname(absolutePath),
+	);
 	const foundryProject = fromBasePath(foundryProjectPath);
 
 	// Get the relative path from the project base to the artifact file
