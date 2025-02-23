@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.10
+
+### Patch Changes
+
+- [#79](https://github.com/ethereum-optimism/super-cli/pull/79) [`fe860ce`](https://github.com/ethereum-optimism/super-cli/commit/fe860cec5aa946ae19bf3c121a623099d75f17c6) Thanks [@jakim929](https://github.com/jakim929)! - fixed private key deployments causing replacement tx
+
 ## 0.0.9
 
 ### Patch Changes
