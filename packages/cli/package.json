@@ -1,6 +1,6 @@
 {
 	"name": "@eth-optimism/super-cli",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"license": "MIT",
 	"bin": {
 		"sup": "dist/cli.js"
