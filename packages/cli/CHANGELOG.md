@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.11
+
+### Patch Changes
+
+- [#81](https://github.com/ethereum-optimism/super-cli/pull/81) [`15d5403`](https://github.com/ethereum-optimism/super-cli/commit/15d5403e30d8a37df1a4d6acaa9ab7ed1d4704ce) Thanks [@jakim929](https://github.com/jakim929)! - error out when cycle is detected, suggest foundry project path, --prepare mode handles string quotations
+
 ## 0.0.10
 
 ### Patch Changes
