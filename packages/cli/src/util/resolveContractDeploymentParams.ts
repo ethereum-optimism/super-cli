@@ -123,9 +123,11 @@ export const resolveContractDeploymentParams = (
 		order = graph.overallOrder();
 	} catch (e) {
 		if (e instanceof DepGraphCycleError) {
-			// TODO: bubble this to user
-			console.error(e.cyclePath);
-			throw new Error('Failed to create deployment plan');
+			throw new Error(
+				`Failed to create deployment plan, cycle detected ${e.cyclePath.join(
+					' -> ',
+				)}`,
+			);
 		}
 
 		throw e;

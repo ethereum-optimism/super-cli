@@ -51,7 +51,6 @@ interface PathInputProps {
 
 export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 	const [suggestions, setSuggestions] = useState<string[]>([]);
-	const [submittedPath, setSubmittedPath] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	const lastValueRef = useRef<string>('');
@@ -67,7 +66,6 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 				return;
 			}
 			setError(null);
-			setSubmittedPath(resolvedPath);
 			onSubmit?.(resolvedPath);
 		},
 		[onSubmit],
@@ -241,13 +239,6 @@ export function PathInput({defaultValue = '', onSubmit}: PathInputProps) {
 			{error && (
 				<Box marginTop={1}>
 					<Text color="red">✗ {error}</Text>
-				</Box>
-			)}
-
-			{submittedPath && !error && (
-				<Box marginTop={1}>
-					<Text color="green">✓ Directory selected: </Text>
-					<Text>{submittedPath}</Text>
 				</Box>
 			)}
 
