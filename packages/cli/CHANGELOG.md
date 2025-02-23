@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.9
+
+### Patch Changes
+
+- [#77](https://github.com/ethereum-optimism/super-cli/pull/77) [`2148322`](https://github.com/ethereum-optimism/super-cli/commit/21483224bf2a0ceabbe8d16bd19cb39a98f47ff1) Thanks [@jakim929](https://github.com/jakim929)! - added create2-many command
+
 ## 0.0.8
 
 ### Patch Changes
