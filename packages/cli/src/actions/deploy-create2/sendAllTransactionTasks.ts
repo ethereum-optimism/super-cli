@@ -4,9 +4,21 @@ import {
 	useTransactionTaskStore,
 } from '@/stores/transactionTaskStore';
 import {chainById} from '@/util/chains/chains';
+import {TxSender} from '@/util/TxSender';
 import {http, sendTransaction} from '@wagmi/core';
 import {createWalletClient, zeroAddress} from 'viem';
 import {PrivateKeyAccount} from 'viem/accounts';
+
+export const sendAllTransactionTasks = async (txSender: TxSender) => {
+	const taskEntryById = useTransactionTaskStore.getState().taskEntryById;
+
+	await Promise.all(
+		Object.values(taskEntryById).map(async task => {
+			const hash = await txSender.sendTx(task.request);
+			onTaskSuccess(task.id, hash);
+		}),
+	);
+};
 
 export const sendAllTransactionTasksWithPrivateKeyAccount = async (
 	account: PrivateKeyAccount,

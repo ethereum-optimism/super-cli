@@ -33,15 +33,17 @@ import {
 import {VerifyCommandInner} from '@/commands/verify';
 
 import {deployCreate2} from '@/actions/deploy-create2/deployCreate2';
-import {
-	sendAllTransactionTasksWithPrivateKeyAccount,
-	sendAllTransactionTasksWithCustomWalletRpc,
-} from '@/actions/deploy-create2/sendAllTransactionTasks';
+import {sendAllTransactionTasks} from '@/actions/deploy-create2/sendAllTransactionTasks';
 import {getSponsoredSenderWalletRpcUrl} from '@/util/sponsoredSender';
 import {zodPrivateKey} from '@/util/schemas';
 import {useChecksForChainsForContracts} from '@/actions/deploy-create2/hooks/useChecksForChainsForContracts';
 import {DeployStatus} from '@/actions/deploy-create2/components/DeployStatus';
 import {DeploymentParams} from '@/actions/deploy-create2/types';
+import {
+	createTxSenderFromCustomWalletRpc,
+	createTxSenderFromPrivateKeyAccount,
+	TxSender,
+} from '@/util/TxSender';
 
 const zodContractConfig = z
 	.object({
@@ -282,6 +284,13 @@ const DeployCreate2ManyCommandInner = ({
 				throw new Error('No chains to deploy to');
 			}
 
+			const txSender = options.privateKey
+				? createTxSenderFromPrivateKeyAccount(
+						wagmiConfig,
+						privateKeyToAccount(options.privateKey),
+				  )
+				: undefined;
+
 			return Promise.all(
 				deploymentParams.map(async ({intent, computedParams}) => {
 					const {forgeArtifactPath, constructorArgs, chains} = intent;
@@ -300,9 +309,7 @@ const DeployCreate2ManyCommandInner = ({
 						chains: chains.filter(chain => chainIdsToDeployTo.has(chain.id)),
 						foundryArtifactPath: forgeArtifactPath,
 						contractArguments: constructorArgs || [],
-						account: options.privateKey
-							? privateKeyToAccount(options.privateKey)
-							: undefined,
+						txSender,
 					});
 				}),
 			);
@@ -384,22 +391,30 @@ const DeployCreate2ManyCommandInner = ({
 					<ChooseExecutionOption
 						label={'🚀 Ready to deploy!'}
 						onSubmit={async executionOption => {
+							setExecutionOption(executionOption);
+
+							if (executionOption.type === 'externalSigner') {
+								return;
+							}
+
+							let txSender: TxSender;
 							if (executionOption.type === 'privateKey') {
-								setExecutionOption(executionOption);
-								await sendAllTransactionTasksWithPrivateKeyAccount(
+								txSender = createTxSenderFromPrivateKeyAccount(
+									wagmiConfig,
 									privateKeyToAccount(executionOption.privateKey),
 								);
 							} else if (executionOption.type === 'sponsoredSender') {
-								setExecutionOption(executionOption);
-								await sendAllTransactionTasksWithCustomWalletRpc(chainId =>
+								txSender = createTxSenderFromCustomWalletRpc(chainId =>
 									getSponsoredSenderWalletRpcUrl(
 										executionOption.apiKey,
 										chainId,
 									),
 								);
 							} else {
-								setExecutionOption(executionOption);
+								throw new Error('Invariant broken');
 							}
+
+							await sendAllTransactionTasks(txSender);
 						}}
 					/>
 				</Box>
