@@ -44,7 +44,8 @@ export const ChooseExecutionOption = ({
 						value: 'externalSigner',
 					},
 					{
-						label: '💰 EthDenver sponsored sender',
+						label:
+							'💰 EthDenver 2025 sponsored transactions (No gas fees required)',
 						value: 'sponsoredSender',
 					},
 				]}
@@ -118,6 +119,8 @@ const PrivateKeyInput = ({onSubmit}: {onSubmit: (privateKey: Hex) => void}) => {
 	);
 };
 
+export const DEFAULT_API_KEY_ETH_DENVER_2025 = 'eth-denver-2025-shared-7947';
+
 const ApiKeyInput = ({onSubmit}: {onSubmit: (apiKey: string) => void}) => {
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [resetKey, setResetKey] = useState(0);
@@ -129,6 +132,7 @@ const ApiKeyInput = ({onSubmit}: {onSubmit: (apiKey: string) => void}) => {
 			</Box>
 			<TextInput
 				key={resetKey}
+				defaultValue={DEFAULT_API_KEY_ETH_DENVER_2025}
 				onSubmit={apiKey => {
 					if (!apiKey || apiKey.trim() === '') {
 						setErrorMessage('API key cannot be empty');
