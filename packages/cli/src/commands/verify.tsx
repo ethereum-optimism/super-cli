@@ -2,12 +2,12 @@ import {Box, Text} from 'ink';
 import {useEffect} from 'react';
 import {zodVerifyContractParams} from '@/actions/verifyContract';
 import {z} from 'zod';
-import {Badge, Spinner} from '@inkjs/ui';
+import {Badge, Spinner, StatusMessage} from '@inkjs/ui';
 import {useStandardJsonInputQuery} from '@/actions/verify/getStandardJsonInputQuery';
 import {Address, Chain} from 'viem';
 
 import {useMappingChainByIdentifier} from '@/queries/chainByIdentifier';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {
 	verifyOnBlockscoutMutation,
 	verifyOnBlockscoutMutationKey,
@@ -15,6 +15,10 @@ import {
 import {getBlockExplorerAddressLink} from '@/util/blockExplorer';
 import {useForgeArtifact} from '@/queries/forgeArtifact';
 import {ForgeArtifact} from '@/util/forge/readForgeArtifact';
+import {
+	getSmartContractOnBlockscoutQuery,
+	getSmartContractOnBlockscoutQueryKey,
+} from '@/actions/verify/getContractOnBlockscoutQuery';
 
 const zodVerifyContractCommandParams = zodVerifyContractParams;
 
@@ -106,7 +110,7 @@ export const VerifyCommandInner = ({
 				</Box>
 				<Box flexDirection="column">
 					{chains.map(chain => (
-						<VerifyForChain
+						<CheckThenVerifyForChain
 							key={chain.id}
 							chain={chain}
 							address={contractAddress}
@@ -117,6 +121,52 @@ export const VerifyCommandInner = ({
 				</Box>
 			</Box>
 		</Box>
+	);
+};
+
+const CheckThenVerifyForChain = ({
+	chain,
+	address,
+	standardJsonInput,
+	contractName,
+}: {
+	chain: Chain;
+	address: Address;
+	standardJsonInput: any;
+	contractName: string;
+}) => {
+	const {data: contractOnBlockscout, isLoading: isContractOnBlockscoutLoading} =
+		useQuery({
+			queryKey: getSmartContractOnBlockscoutQueryKey(address, chain),
+			queryFn: () => getSmartContractOnBlockscoutQuery(address, chain),
+			retry: failureCount => failureCount < 5,
+		});
+
+	if (isContractOnBlockscoutLoading) {
+		return (
+			<Spinner label="Checking that contract has been indexed by Blockscout..." />
+		);
+	}
+
+	if (!contractOnBlockscout) {
+		return (
+			<StatusMessage variant="error">
+				Contract not found on Blockscout
+			</StatusMessage>
+		);
+	}
+
+	if (contractOnBlockscout.isVerified) {
+		return <SuccessfullyVerified chain={chain} address={address} />;
+	}
+
+	return (
+		<VerifyForChain
+			chain={chain}
+			address={address}
+			standardJsonInput={standardJsonInput}
+			contractName={contractName}
+		/>
 	);
 };
 
@@ -137,13 +187,16 @@ const VerifyForChain = ({
 			chain,
 			standardJsonInput,
 		),
-		mutationFn: () =>
-			verifyOnBlockscoutMutation(
+		mutationFn: async () => {
+			return await verifyOnBlockscoutMutation(
 				address,
 				chain,
 				standardJsonInput,
 				contractName,
-			),
+			);
+		},
+		retry: failureCount => failureCount < 3,
+		retryDelay: failureCount => failureCount * 1000,
 	});
 
 	useEffect(() => {
@@ -163,6 +216,16 @@ const VerifyForChain = ({
 		);
 	}
 
+	return <SuccessfullyVerified chain={chain} address={address} />;
+};
+
+const SuccessfullyVerified = ({
+	chain,
+	address,
+}: {
+	chain: Chain;
+	address: Address;
+}) => {
 	return (
 		<Box gap={1}>
 			<Badge color="green">Verified</Badge>
