@@ -2,8 +2,6 @@
 
 `sup` is a CLI tool to help deploy and manage contracts on the Superchain.
 
-**WIP** This is a work in progress it is not ready to be consumed!
-
 ## ✨ Features
 
 - 🤝 works with existing `foundry` projects (`sup` is a companion, not a replacement to `foundry`)
