@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.12
+
+### Patch Changes
+
+- [#83](https://github.com/ethereum-optimism/super-cli/pull/83) [`47b3346`](https://github.com/ethereum-optimism/super-cli/commit/47b33462c8da2faf53862b9997023e113caba7f4) Thanks [@jakim929](https://github.com/jakim929)! - added sponsored deployer and checks before verifying
+
 ## 0.0.11
 
 ### Patch Changes
