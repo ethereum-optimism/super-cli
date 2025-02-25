@@ -1,3 +1,4 @@
+import {zodHex} from '@/util/schemas';
 import {Address} from 'viem';
 import {z} from 'zod';
 
@@ -44,14 +45,14 @@ export const verifyContractOnBlockscout = async (
 
 const zBlockscoutSmartContract = z
 	.object({
-		is_verified: z.boolean(),
-		name: z.string(),
+		creation_bytecode: zodHex,
+		is_verified: z.boolean().optional(),
 		// TOOD: there's more but this is all we need for now
 		// https://optimism-sepolia.blockscout.com/api-docs
 	})
 	.transform(data => ({
-		isVerified: data.is_verified,
-		name: data.name,
+		creationBytecode: data.creation_bytecode,
+		isVerified: !!data.is_verified,
 	}));
 
 export const getSmartContractOnBlockscout = async (
