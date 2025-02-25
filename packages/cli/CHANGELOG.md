@@ -1,5 +1,11 @@
 # @eth-optimism/super-cli
 
+## 0.0.13
+
+### Patch Changes
+
+- [#85](https://github.com/ethereum-optimism/super-cli/pull/85) [`4c8757a`](https://github.com/ethereum-optimism/super-cli/commit/4c8757af2acd38d56177ee4d6ea75d762d344e0e) Thanks [@jakim929](https://github.com/jakim929)! - fixed blockscout get smart contract function
+
 ## 0.0.12
 
 ### Patch Changes
