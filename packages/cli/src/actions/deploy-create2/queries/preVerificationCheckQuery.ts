@@ -2,6 +2,7 @@ import {Address, Hex} from 'viem';
 import {Config} from 'wagmi';
 
 import {getBytecode} from '@wagmi/core';
+import {ComputedDeploymentParams} from '@/actions/deploy-create2/types';
 
 export const preVerificationCheckQueryKey = (
 	deterministicAddress: Address,
@@ -25,10 +26,7 @@ export const preVerificationCheckQueryOptions = (
 		initCode,
 		baseSalt,
 		chainId,
-	}: {
-		deterministicAddress: Address;
-		initCode: Hex;
-		baseSalt: Hex;
+	}: ComputedDeploymentParams & {
 		chainId: number;
 	},
 ) => {

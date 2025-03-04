@@ -2,13 +2,11 @@
 
 `sup` is a CLI tool to help deploy and manage contracts on the Superchain.
 
-**WIP** This is a work in progress it is not ready to be consumed!
-
 ## ✨ Features
 
 - 🤝 works with existing `foundry` projects (`sup` is a companion, not a replacement to `foundry`)
 - 🕹️ interactive mode (no more juggling cli flags)
-- 🚀 deploy and verify contracts to multiple chains at once
+- 🚀 deploy and verify **multiple** contracts to **multiple** chains at once
 - 💸 bridge funds to multiple chains at once (no more "how do I get gas on all of these chains?")
 - 🔑 use connected wallets (Metamask / WalletConnect) to deploy contracts (no more `.env` files with private keys)
 

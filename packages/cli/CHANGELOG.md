@@ -1,5 +1,47 @@
 # @eth-optimism/super-cli
 
+## 0.0.13
+
+### Patch Changes
+
+- [#85](https://github.com/ethereum-optimism/super-cli/pull/85) [`4c8757a`](https://github.com/ethereum-optimism/super-cli/commit/4c8757af2acd38d56177ee4d6ea75d762d344e0e) Thanks [@jakim929](https://github.com/jakim929)! - fixed blockscout get smart contract function
+
+## 0.0.12
+
+### Patch Changes
+
+- [#83](https://github.com/ethereum-optimism/super-cli/pull/83) [`47b3346`](https://github.com/ethereum-optimism/super-cli/commit/47b33462c8da2faf53862b9997023e113caba7f4) Thanks [@jakim929](https://github.com/jakim929)! - added sponsored deployer and checks before verifying
+
+## 0.0.11
+
+### Patch Changes
+
+- [#81](https://github.com/ethereum-optimism/super-cli/pull/81) [`15d5403`](https://github.com/ethereum-optimism/super-cli/commit/15d5403e30d8a37df1a4d6acaa9ab7ed1d4704ce) Thanks [@jakim929](https://github.com/jakim929)! - error out when cycle is detected, suggest foundry project path, --prepare mode handles string quotations
+
+## 0.0.10
+
+### Patch Changes
+
+- [#79](https://github.com/ethereum-optimism/super-cli/pull/79) [`fe860ce`](https://github.com/ethereum-optimism/super-cli/commit/fe860cec5aa946ae19bf3c121a623099d75f17c6) Thanks [@jakim929](https://github.com/jakim929)! - fixed private key deployments causing replacement tx
+
+## 0.0.9
+
+### Patch Changes
+
+- [#77](https://github.com/ethereum-optimism/super-cli/pull/77) [`2148322`](https://github.com/ethereum-optimism/super-cli/commit/21483224bf2a0ceabbe8d16bd19cb39a98f47ff1) Thanks [@jakim929](https://github.com/jakim929)! - added create2-many command
+
+## 0.0.8
+
+### Patch Changes
+
+- [#75](https://github.com/ethereum-optimism/super-cli/pull/75) [`25cafbf`](https://github.com/ethereum-optimism/super-cli/commit/25cafbf3ed41393591044830503a8d76cb014d6b) Thanks [@tremarkley](https://github.com/tremarkley)! - bump nvmrc to 20.10
+
+## 0.0.7
+
+### Patch Changes
+
+- [#72](https://github.com/ethereum-optimism/super-cli/pull/72) [`0079643`](https://github.com/ethereum-optimism/super-cli/commit/00796432e682e327bf3a3a962a482a4b28d635ee) Thanks [@jakim929](https://github.com/jakim929)! - added exit when finished deploying
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,4 +1,7 @@
+import {zodHex} from '@/util/schemas';
 import {Address} from 'viem';
+import {z} from 'zod';
+
 // TODO switch to a real type
 export const verifyContractOnBlockscout = async (
 	blockscoutApiBaseUrl: string,
@@ -38,4 +41,33 @@ export const verifyContractOnBlockscout = async (
 
 	throw new Error(result.message);
 	// TODO poll for result - although blockscout doesn't have that endpoint
+};
+
+const zBlockscoutSmartContract = z
+	.object({
+		creation_bytecode: zodHex,
+		is_verified: z.boolean().optional(),
+		// TOOD: there's more but this is all we need for now
+		// https://optimism-sepolia.blockscout.com/api-docs
+	})
+	.transform(data => ({
+		creationBytecode: data.creation_bytecode,
+		isVerified: !!data.is_verified,
+	}));
+
+export const getSmartContractOnBlockscout = async (
+	blockscoutApiBaseUrl: string,
+	contractAddress: Address,
+) => {
+	const url = `${blockscoutApiBaseUrl}/api/v2/smart-contracts/${contractAddress}`;
+
+	const response = await fetch(url);
+
+	if (response.status === 404) {
+		throw new Error('Contract not found on Blockscout');
+	}
+
+	const result = await response.json();
+
+	return zBlockscoutSmartContract.parse(result);
 };

@@ -3,18 +3,22 @@ import {Box, Text} from 'ink';
 import {Spinner} from '@inkjs/ui';
 import {useUpdateUserContext, useUserContext} from '@/queries/userContext';
 import {PathInput} from '@/components/path-input/PathInput';
+import {findFoundryRootDown} from '@/util/forge/foundryProject';
+import {useState} from 'react';
 
 export const EnterFoundryProjectPath = () => {
-	const {wizardState, submitEnterFoundryProjectPath} =
-		useDeployCreate2WizardStore();
+	const {submitEnterFoundryProjectPath} = useDeployCreate2WizardStore();
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+	const [foundRoot, setFoundRoot] = useState<string | null>(null);
 
 	const {data: userContext, isLoading: isUserContextLoading} = useUserContext();
 
 	const {mutate: updateUserContext} = useUpdateUserContext();
 
-	if (wizardState.stepId !== 'enter-foundry-project-path') {
-		throw new Error('Invalid state');
-	}
+	// if (wizardState.stepId !== 'enter-foundry-project-path') {
+	// 	console.log('Invalid state', wizardState.stepId);
+	// 	throw new Error('Invalid state');
+	// }
 
 	if (isUserContextLoading || !userContext) {
 		return <Spinner />;
@@ -39,19 +43,47 @@ export const EnterFoundryProjectPath = () => {
 				<Text>)</Text>
 				<Text>:</Text>
 			</Box>
+			{errorMessage && (
+				<Box>
+					<Text color="yellow">{errorMessage} </Text>
+					{foundRoot && (
+						<Text color="cyan" bold>
+							{foundRoot}
+						</Text>
+					)}
+				</Box>
+			)}
 			<PathInput
 				defaultValue={userContext.forgeProjectPath ?? ''}
-				onSubmit={foundryProjectPath => {
+				onSubmit={async foundryProjectPath => {
 					const projectPath = foundryProjectPath.trim();
-					if (projectPath !== '') {
-						updateUserContext({
-							forgeProjectPath: projectPath,
-						});
-					}
+					// setErrorMessage(null);
+					// setFoundRoot(null);
 
-					submitEnterFoundryProjectPath({
-						foundryProjectPath: projectPath === '' ? '.' : projectPath,
-					});
+					let foundryRoot: string | undefined;
+					try {
+						foundryRoot = await findFoundryRootDown(projectPath, 4);
+
+						if (foundryRoot && foundryRoot !== projectPath) {
+							setErrorMessage(
+								'No foundry.toml found here, but one was found at:',
+							);
+							setFoundRoot(foundryRoot);
+							return;
+						}
+
+						if (projectPath !== '') {
+							updateUserContext({
+								forgeProjectPath: projectPath,
+							});
+						}
+
+						submitEnterFoundryProjectPath({
+							foundryProjectPath: projectPath === '' ? '.' : projectPath,
+						});
+					} catch (e) {
+						setErrorMessage('Could not find a Foundry project (foundry.toml)');
+					}
 				}}
 			/>
 		</Box>

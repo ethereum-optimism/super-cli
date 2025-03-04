@@ -1,46 +1,39 @@
-import {Address, Hex} from 'viem';
 import {useConfig} from 'wagmi';
 
 import {useQueries} from '@tanstack/react-query';
 import {preVerificationCheckQueryOptions} from '@/actions/deploy-create2/queries/preVerificationCheckQuery';
 import {simulationCheckQueryOptions} from '@/actions/deploy-create2/queries/simulationCheckQuery';
+import {DeploymentParams} from '@/actions/deploy-create2/types';
 
 // Gives a handle for the overall check status so the top level component can
 // display the appropriate UI
 export const useChecksForChains = ({
-	deterministicAddress,
-	initCode,
-	baseSalt,
-	chainIds,
-}: {
-	deterministicAddress: Address;
-	initCode: Hex;
-	baseSalt: Hex;
-	chainIds: number[];
-}) => {
+	intent,
+	computedParams,
+}: DeploymentParams) => {
 	const wagmiConfig = useConfig();
 
 	const preVerificationCheckQueries = useQueries({
-		queries: chainIds.map(chainId => {
+		queries: intent.chains.map(chain => {
 			return {
 				...preVerificationCheckQueryOptions(wagmiConfig, {
-					deterministicAddress,
-					initCode,
-					baseSalt,
-					chainId,
+					deterministicAddress: computedParams.deterministicAddress,
+					initCode: computedParams.initCode,
+					baseSalt: computedParams.baseSalt,
+					chainId: chain.id,
 				}),
 			};
 		}),
 	});
 
 	const simulationQueries = useQueries({
-		queries: chainIds.map(chainId => {
+		queries: intent.chains.map(chain => {
 			return {
 				...simulationCheckQueryOptions(wagmiConfig, {
-					deterministicAddress,
-					initCode,
-					baseSalt,
-					chainId,
+					deterministicAddress: computedParams.deterministicAddress,
+					initCode: computedParams.initCode,
+					baseSalt: computedParams.baseSalt,
+					chainId: chain.id,
 				}),
 			};
 		}),
@@ -56,22 +49,24 @@ export const useChecksForChains = ({
 	);
 
 	if (isSimulationCompleted && isPreVerificationCheckCompleted) {
-		const chainsToDeployTo = chainIds.filter(
-			(_, i) =>
-				!preVerificationCheckQueries[i]!.data!.isAlreadyDeployed &&
-				simulationQueries[i]!.data!.isAddressSameAsExpected,
-		);
+		const chainIdsToDeployTo = intent.chains
+			.filter(
+				(_, i) =>
+					!preVerificationCheckQueries[i]!.data!.isAlreadyDeployed &&
+					simulationQueries[i]!.data!.isAddressSameAsExpected,
+			)
+			.map(chain => chain.id);
 
 		return {
 			isSimulationCompleted,
 			isPreVerificationCheckCompleted,
-			chainsToDeployTo,
+			chainIdsToDeployTo,
 		};
 	}
 
 	return {
 		isSimulationCompleted,
 		isPreVerificationCheckCompleted,
-		chainsToDeployTo: undefined,
+		chainIdsToDeployTo: undefined,
 	};
 };

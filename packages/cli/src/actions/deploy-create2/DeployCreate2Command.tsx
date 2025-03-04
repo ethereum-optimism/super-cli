@@ -1,29 +1,18 @@
 import {Box, Text} from 'ink';
 import {useEffect, useState} from 'react';
 
-import {Spinner, Badge} from '@inkjs/ui';
+import {Spinner} from '@inkjs/ui';
 import {DeployCreateXCreate2Params} from '@/actions/deployCreateXCreate2';
 
-import {
-	Address,
-	Chain,
-	encodeFunctionData,
-	formatEther,
-	formatUnits,
-	Hex,
-	zeroAddress,
-} from 'viem';
-import {useConfig, useWaitForTransactionReceipt} from 'wagmi';
+import {Address, Chain} from 'viem';
+import {useConfig} from 'wagmi';
 import {useForgeArtifact} from '@/queries/forgeArtifact';
 import {ForgeArtifact} from '@/util/forge/readForgeArtifact';
-import {CREATEX_ADDRESS, createXABI} from '@/util/createx/constants';
 import {useMappingChainByIdentifier} from '@/queries/chainByIdentifier';
 import {privateKeyToAccount} from 'viem/accounts';
-import {getBlockExplorerAddressLink} from '@/util/blockExplorer';
-import {getDeployCreate2Params} from '@/actions/deploy-create2/getDeployCreate2Params';
-import {useMutation, useQuery} from '@tanstack/react-query';
-import {preVerificationCheckQueryOptions} from '@/actions/deploy-create2/queries/preVerificationCheckQuery';
-import {simulationCheckQueryOptions} from '@/actions/deploy-create2/queries/simulationCheckQuery';
+import {computeDeploymentParams} from '@/actions/deploy-create2/computeDeploymentParams';
+import {useMutation} from '@tanstack/react-query';
+
 import {useChecksForChains} from '@/actions/deploy-create2/hooks/useChecksForChains';
 import {
 	ChooseExecutionOption,
@@ -31,17 +20,15 @@ import {
 } from '@/components/ChooseExecutionOption';
 
 import {VerifyCommandInner} from '@/commands/verify';
-import {useGasEstimation} from '@/hooks/useGasEstimation';
-import {useOperation} from '@/stores/operationStore';
-import {
-	deployCreate2,
-	executeTransactionOperation,
-} from '@/actions/deploy-create2/deployCreate2';
+import {deployCreate2} from '@/actions/deploy-create2/deployCreate2';
 import {
 	sendAllTransactionTasksWithPrivateKeyAccount,
 	sendAllTransactionTasksWithCustomWalletRpc,
 } from '@/actions/deploy-create2/sendAllTransactionTasks';
 import {getSponsoredSenderWalletRpcUrl} from '@/util/sponsoredSender';
+import {DeployStatus} from '@/actions/deploy-create2/components/DeployStatus';
+import {DeploymentParams} from '@/actions/deploy-create2/types';
+import {createTxSenderFromPrivateKeyAccount} from '@/util/TxSender';
 
 // Prepares any required data or loading state if waiting
 export const DeployCreate2Command = ({
@@ -76,22 +63,32 @@ export const DeployCreate2Command = ({
 		return chain;
 	});
 
+	const intent = {
+		chains,
+		forgeArtifactPath: options.forgeArtifactPath,
+		forgeArtifact,
+		constructorArgs: options.constructorArgs?.split(','),
+		salt: options.salt,
+	};
+
+	const computedParams = computeDeploymentParams(intent);
+
 	return (
 		<DeployCreate2CommandInner
-			chains={chains}
-			forgeArtifact={forgeArtifact}
+			deploymentParams={{
+				intent,
+				computedParams,
+			}}
 			options={options}
 		/>
 	);
 };
 
 const DeployCreate2CommandInner = ({
-	chains,
-	forgeArtifact,
+	deploymentParams,
 	options,
 }: {
-	chains: Chain[];
-	forgeArtifact: ForgeArtifact;
+	deploymentParams: DeploymentParams;
 	options: DeployCreateXCreate2Params;
 }) => {
 	const [executionOption, setExecutionOption] =
@@ -101,18 +98,10 @@ const DeployCreate2CommandInner = ({
 				: null,
 		);
 
-	const {initCode, deterministicAddress, baseSalt} = getDeployCreate2Params({
-		forgeArtifact,
-		constructorArgs: options.constructorArgs,
-		salt: options.salt,
-	});
+	const {initCode, deterministicAddress, baseSalt} =
+		deploymentParams.computedParams;
 
-	const {chainsToDeployTo: chainIdsToDeployTo} = useChecksForChains({
-		deterministicAddress,
-		initCode,
-		baseSalt,
-		chainIds: chains.map(chain => chain.id),
-	});
+	const {chainIdsToDeployTo} = useChecksForChains(deploymentParams);
 
 	const wagmiConfig = useConfig();
 
@@ -128,6 +117,13 @@ const DeployCreate2CommandInner = ({
 				throw new Error('No chains to deploy to');
 			}
 
+			const txSender = options.privateKey
+				? createTxSenderFromPrivateKeyAccount(
+						wagmiConfig,
+						privateKeyToAccount(options.privateKey),
+				  )
+				: undefined;
+
 			return deployCreate2({
 				wagmiConfig,
 				deterministicAddress,
@@ -136,9 +132,7 @@ const DeployCreate2CommandInner = ({
 				chains: chainsToDeployTo,
 				foundryArtifactPath: options.forgeArtifactPath,
 				contractArguments: options.constructorArgs?.split(',') ?? [],
-				account: options.privateKey
-					? privateKeyToAccount(options.privateKey)
-					: undefined,
+				txSender,
 			});
 		},
 	});
@@ -164,7 +158,9 @@ const DeployCreate2CommandInner = ({
 					<Text>
 						Target Chains:{' '}
 						<Text color="green">
-							{chains.map(chain => chain.name).join(', ')}
+							{deploymentParams.intent.chains
+								.map(chain => chain.name)
+								.join(', ')}
 						</Text>
 					</Text>
 					<Text>
@@ -192,14 +188,14 @@ const DeployCreate2CommandInner = ({
 			<Box flexDirection="column" paddingX={2}>
 				<Box flexDirection="row">
 					<Box flexDirection="column" marginRight={2}>
-						{chains.map(chain => (
+						{deploymentParams.intent.chains.map(chain => (
 							<Text key={chain.id} bold color="blue">
 								{chain.name}:
 							</Text>
 						))}
 					</Box>
 					<Box flexDirection="column">
-						{chains.map(chain => (
+						{deploymentParams.intent.chains.map(chain => (
 							<DeployStatus
 								key={chain.id}
 								chain={chain}
@@ -240,10 +236,10 @@ const DeployCreate2CommandInner = ({
 			{data && (
 				<CompletedOrVerify
 					shouldVerify={!!options.verify}
-					chains={chains}
+					chains={deploymentParams.intent.chains}
 					forgeArtifactPath={options.forgeArtifactPath}
 					contractAddress={deterministicAddress}
-					forgeArtifact={forgeArtifact}
+					forgeArtifact={deploymentParams.intent.forgeArtifact}
 				/>
 			)}
 		</Box>
@@ -264,6 +260,10 @@ const CompletedOrVerify = ({
 	forgeArtifact: ForgeArtifact;
 }) => {
 	if (!shouldVerify) {
+		// TODO: hacky way to quit until we remove pastel
+		setTimeout(() => {
+			process.exit(0);
+		}, 1);
 		return (
 			<Box>
 				<Text>Contract is successfully deployed to all chains</Text>
@@ -278,279 +278,5 @@ const CompletedOrVerify = ({
 			contractAddress={contractAddress}
 			forgeArtifact={forgeArtifact}
 		/>
-	);
-};
-
-const DeployStatus = ({
-	chain,
-	initCode,
-	baseSalt,
-	deterministicAddress,
-	executionOption,
-}: {
-	chain: Chain;
-	initCode: Hex;
-	baseSalt: Hex;
-	deterministicAddress: Address;
-	executionOption: ExecutionOption | null;
-}) => {
-	const wagmiConfig = useConfig();
-
-	const {
-		data: preVerificationCheckData,
-		isLoading: isPreVerificationCheckLoading,
-		error: preVerificationCheckError,
-	} = useQuery({
-		...preVerificationCheckQueryOptions(wagmiConfig, {
-			deterministicAddress,
-			initCode,
-			baseSalt,
-			chainId: chain.id,
-		}),
-	});
-
-	const {
-		data: simulationData,
-		isLoading: isSimulationLoading,
-		error: simulationError,
-	} = useQuery({
-		...simulationCheckQueryOptions(wagmiConfig, {
-			deterministicAddress,
-			initCode,
-			baseSalt,
-			chainId: chain.id,
-		}),
-	});
-
-	const {data: gasEstimation, isLoading: isGasEstimationLoading} =
-		useGasEstimation({
-			chainId: chain.id,
-			to: CREATEX_ADDRESS,
-			account: zeroAddress,
-
-			data: encodeFunctionData({
-				abi: createXABI,
-				functionName: 'deployCreate2',
-				args: [baseSalt, initCode],
-			}),
-		});
-
-	if (preVerificationCheckError) {
-		return (
-			<Box gap={1}>
-				<Badge color="red">Error</Badge>
-				<Text>
-					Pre-verification check failed:{' '}
-					{preVerificationCheckError.message.split('\n')[0]}
-				</Text>
-			</Box>
-		);
-	}
-
-	if (isPreVerificationCheckLoading || !preVerificationCheckData) {
-		return <Spinner label="Checking if contract is already deployed" />;
-	}
-
-	if (preVerificationCheckData.isAlreadyDeployed) {
-		return (
-			<Box gap={1}>
-				<Badge color="green">Deployed</Badge>
-				<Text>Contract is already deployed</Text>
-
-				<Text>{getBlockExplorerAddressLink(chain, deterministicAddress)}</Text>
-			</Box>
-		);
-	}
-
-	if (simulationError) {
-		return (
-			<Box gap={1}>
-				<Badge color="red">Error</Badge>
-				<Text>
-					Simulation check failed: {simulationError.message.split('\n')[0]}
-				</Text>
-			</Box>
-		);
-	}
-
-	if (isSimulationLoading || !simulationData) {
-		return (
-			<Spinner label="Simulating deployment to check for address mismatch" />
-		);
-	}
-
-	if (!simulationData.isAddressSameAsExpected) {
-		return (
-			<Box gap={1}>
-				<Badge color="red">Failed</Badge>
-				<Text>Address mismatch</Text>
-			</Box>
-		);
-	}
-
-	if (!executionOption) {
-		return (
-			<Box gap={1}>
-				<Badge color="blue">Ready</Badge>
-				<Text>Estimated fees</Text>
-				{isGasEstimationLoading || !gasEstimation ? (
-					<Spinner />
-				) : (
-					<GasEstimation gasEstimation={gasEstimation} />
-				)}
-			</Box>
-		);
-	}
-
-	if (
-		executionOption.type === 'privateKey' ||
-		executionOption.type === 'sponsoredSender'
-	) {
-		return (
-			<PrivateKeyExecution
-				chain={chain}
-				initCode={initCode}
-				baseSalt={baseSalt}
-				deterministicAddress={deterministicAddress}
-			/>
-		);
-	}
-
-	return (
-		<ExternalSignerExecution
-			chain={chain}
-			initCode={initCode}
-			baseSalt={baseSalt}
-			deterministicAddress={deterministicAddress}
-		/>
-	);
-};
-
-const GasEstimation = ({
-	gasEstimation,
-}: {
-	gasEstimation: {
-		totalFee: bigint;
-		estimatedL1Fee: bigint;
-		estimatedL2Gas: bigint;
-		l2GasPrice: bigint;
-	};
-}) => {
-	return (
-		<Text>
-			<Text>(L1 Fee: </Text>
-			<Text color="green">{formatEther(gasEstimation.estimatedL1Fee)} ETH</Text>
-			<Text>) + (L2 Gas: </Text>
-			<Text color="yellow">{gasEstimation.estimatedL2Gas.toString()}</Text>
-			<Text> gas × L2 Gas Price: </Text>
-			<Text color="cyan">{formatUnits(gasEstimation.l2GasPrice, 9)} gwei</Text>
-			<Text>) = </Text>
-			<Text color="green" bold>
-				{formatEther(gasEstimation.totalFee)} ETH
-			</Text>
-		</Text>
-	);
-};
-
-const PrivateKeyExecution = ({
-	chain,
-	initCode,
-	baseSalt,
-	deterministicAddress,
-}: {
-	chain: Chain;
-	initCode: Hex;
-	baseSalt: Hex;
-	deterministicAddress: Address;
-}) => {
-	const {
-		status,
-		data: transactionHash,
-		error,
-	} = useOperation(
-		executeTransactionOperation({
-			chainId: chain.id,
-			deterministicAddress,
-			initCode,
-			baseSalt,
-		}),
-	);
-
-	const {isLoading: isReceiptLoading} = useWaitForTransactionReceipt({
-		hash: transactionHash,
-		chainId: chain.id,
-	});
-
-	if (status === 'pending') {
-		return <Spinner label="Deploying contract" />;
-	}
-
-	if (error) {
-		return <Text>Error deploying contract: {error.message}</Text>;
-	}
-
-	if (isReceiptLoading) {
-		return <Spinner label="Waiting for receipt" />;
-	}
-
-	return (
-		<Box gap={1}>
-			<Badge color="green">Deployed</Badge>
-			<Text>Contract successfully deployed</Text>
-			<Text>{getBlockExplorerAddressLink(chain, deterministicAddress)}</Text>
-		</Box>
-	);
-};
-
-const ExternalSignerExecution = ({
-	chain,
-	initCode,
-	baseSalt,
-	deterministicAddress,
-}: {
-	chain: Chain;
-	initCode: Hex;
-	baseSalt: Hex;
-	deterministicAddress: Address;
-}) => {
-	const {data: hash} = useOperation(
-		executeTransactionOperation({
-			chainId: chain.id,
-			deterministicAddress,
-			initCode,
-			baseSalt,
-		}),
-	);
-
-	const {data: receipt, isLoading: isReceiptLoading} =
-		useWaitForTransactionReceipt({
-			hash,
-			chainId: chain.id,
-		});
-
-	if (!hash) {
-		return (
-			<Box gap={1}>
-				<Spinner label="Waiting for signature..." />
-				<Box flexDirection="row">
-					<Text>Send the transaction at </Text>
-					<Text color="cyan" bold>
-						http://localhost:3000
-					</Text>
-				</Box>
-			</Box>
-		);
-	}
-
-	if (isReceiptLoading || !receipt) {
-		return <Spinner label="Waiting for receipt" />;
-	}
-
-	return (
-		<Box gap={1}>
-			<Badge color="green">Deployed</Badge>
-			<Text>Contract successfully deployed</Text>
-			<Text>{getBlockExplorerAddressLink(chain, deterministicAddress)}</Text>
-		</Box>
 	);
 };
