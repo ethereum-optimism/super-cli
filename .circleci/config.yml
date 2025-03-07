@@ -110,7 +110,10 @@ workflows:
               ignore: main # ignore main branch as it is included in the release workflow
   release-workflow:
     jobs:
-      - check
+      - check:
+          filters:
+            branches:
+              only: main
       - publish-to-npm:
           name: Publish new versions
           context:
