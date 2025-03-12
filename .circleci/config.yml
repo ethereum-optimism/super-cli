@@ -1,9 +1,9 @@
 version: 2.1
 
 orbs:
+  utils: ethereum-optimism/circleci-utils@1.0.17
   nx: nrwl/nx@1.6.2
-  node: circleci/node@6.3.0
-  utils: ethereum-optimism/circleci-utils@1.0.16
+
 
 
 commands:
@@ -25,21 +25,20 @@ commands:
           command: pnpm release:version:snapshot
 
   setup:
-    description: "Setup"
+    description: "Setup Node.js environment with pnpm and nx"
     steps:
-      - checkout
-      - node/install-pnpm:
-          version: '9'
+      - utils/checkout-with-mise      # Install dependencies
       - run:
-          name: Install pnpm dependencies
-          command: pnpm install --frozen-lockfile
+          name: Install dependencies
           environment:
             NPM_TOKEN: nada
+          command: |
+            pnpm i --frozen-lockfile
 
 jobs:
   publish-to-npm:
-    docker:
-      - image: cimg/node:20.11
+    machine:
+      image: ubuntu-2204:2024.08.1
     parameters:
       prepare-snapshot:
         type: boolean
@@ -82,9 +81,8 @@ jobs:
 
 
   check:
-    executor:
-      name: node/default
-      tag: '22.10'
+    machine:
+      image: ubuntu-2204:2024.08.1
     steps:
       - setup
       - nx/set-shas
