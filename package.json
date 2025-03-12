@@ -6,8 +6,7 @@
    "scripts": {
       "release:publish": "changeset publish",
       "release:version": "changeset version && pnpm install --lockfile-only",
-		"release:version:snapshot": "changeset version --snapshot ${SNAPSHOT_NAME:-snapshot} && pnpm install --lockfile-only"
-
+      "release:version:snapshot": "changeset version --snapshot ${SNAPSHOT_NAME:-snapshot} && pnpm install --lockfile-only"
    },
    "dependencies": {
       "@changesets/cli": "^2.27.10",
