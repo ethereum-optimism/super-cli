@@ -129,6 +129,7 @@ workflows:
               - circleci-repo-super-cli # for GITHUB_TOKEN_GOVERNANCE && NPM_TOKEN
           requires:
             - check
+            - publish-to-npm
           filters:
             branches:
               only: main
