@@ -129,7 +129,7 @@ workflows:
               - circleci-repo-super-cli # for GITHUB_TOKEN_GOVERNANCE && NPM_TOKEN
           requires:
             - check
-            - publish-to-npm
+            - "Publish new versions"  # Changed from 'publish-to-npm' to the actual job name
           filters:
             branches:
               only: main
